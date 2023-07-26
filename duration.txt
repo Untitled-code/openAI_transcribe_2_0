@@ -1,0 +1,11 @@
+dir_959676595_Oleg_d09ed0bbd0b5d0b3/audio_20230720161205844.mp3   Duration: 00:02:44.47, start: 0.025057, bitrate: 320 kb/s
+dir_959676595_Oleg_d09ed0bbd0b5d0b3/audio_20230720162438093.mp3   Duration: 00:03:25.75, start: 0.000000, bitrate: 192 kb/s
+dir_959676595_Oleg_d09ed0bbd0b5d0b3/audio_20230725172657017.mp3   Duration: 00:01:50.18, start: 0.025057, bitrate: 194 kb/s
+dir_959676595_Oleg_d09ed0bbd0b5d0b3/audio_20230725172950689.mp3   Duration: 00:01:50.18, start: 0.025057, bitrate: 194 kb/s
+dir_959676595_Oleg_d09ed0bbd0b5d0b3/audio_20230725173416613.mp3   Duration: 00:00:41.09, start: 0.025057, bitrate: 120 kb/s
+dir_959676595_Oleg_d09ed0bbd0b5d0b3/audio_20230725191909441.mp3   Duration: 00:03:33.89, start: 0.025057, bitrate: 191 kb/s
+dir_959676595_Oleg_d09ed0bbd0b5d0b3/audio_20230725192211167.mp3   Duration: 00:03:33.89, start: 0.025057, bitrate: 191 kb/s
+dir_959676595_Oleg_d09ed0bbd0b5d0b3/audio_20230726164044259.mp3   Duration: 00:01:50.18, start: 0.025057, bitrate: 194 kb/s
+ 
+dir_959676595_Oleg_d09ed0bbd0b5d0b3/audio_20230726164427477.mp3   Duration: 00:03:33.89, start: 0.025057, bitrate: 191 kb/s
+dir_959676595_Oleg_d09ed0bbd0b5d0b3/audio_20230726165012007.mp3   Duration: 00:01:50.18, start: 0.025057, bitrate: 194 kb/s
