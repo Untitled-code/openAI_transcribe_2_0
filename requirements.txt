@@ -1,5 +1,6 @@
-pyTelegramBotAPI==4.10.0
+pyTelegramBotAPI
 openai
-pydub==0.25.1
-pytube==12.1.2
+pydub
+pymysql
+
 
