@@ -45,7 +45,8 @@ menu = {
     'main': [
         ['Почати транскрибування', 'option1'],
         ['Перевірити кількість доступних хвилин', 'option2'],
-        ['Внести пожертву', 'option3'],
+        ['Зробити донат', 'option3'],
+        ['Умови користування', 'option4'],
         ['Back', 'menu']
     ]
     # ,
@@ -90,26 +91,28 @@ def handle_query(call):
     if call.data == 'option1':
         transcribe(call.message) #calling function
     elif call.data == 'option2':
-        combine(call.message) #calling function
+        checkMinutes(call.message) #calling function
+    elif call.data == 'option3':
+        donate(call.message) #calling function
+    elif call.data == 'option4':
+        conditions(call.message) #calling function
     elif call.data in menu:
         bot.edit_message_text('You are in a submenu:', chat_id=call.message.chat.id, message_id=call.message.message_id, reply_markup=make_keyboard(call.data))
     else:
         bot.answer_callback_query(call.id, f"You chose {call.data}")
+
 def request_phone_number(message):
     markup = telebot.types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
     phone_button = telebot.types.KeyboardButton("Будь ласка, надайте ваш номер телефону для підключення", request_contact=True)
     markup.add(phone_button)
 
-    bot.send_message(message.chat.id, "Будь ласка, надайте ваш номер телефону:", reply_markup=markup)
+    # bot.send_message(message.chat.id, "Будь ласка, надайте ваш номер телефону:", reply_markup=markup)
 
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
     bot.send_message(message.chat.id, """\
-Привіт! Я бот проекту nikcenter.org для розшифровки аудіо та відеофайлів за допомогою AI chatGPT.\n
+Привіт! Я оновлений бот проекту nikcenter.org для розшифровки аудіо та відеофайлів за допомогою AI chatGPT.\n
 Вибери, що потрібно в меню:""", reply_markup=make_keyboard('main'))
-    request = 'SELECT * FROM users'
-    respond = connectDB(request)
-    print(respond)
     user_id = message.chat.id
     firstname = message.from_user.first_name  # getting name of user
     username = message.from_user.username  # getting name of username
@@ -144,8 +147,8 @@ def transcribe(message):
     chat_id = message.chat.id  # getting user id
     user = user_dict[chat_id]
     print(user.id, user.username, user.firstname)
-    bot.send_message(chat_id, f'Якщо ви отримали доступ, то закиньте сюди аудіо файл розміром до 20 Мб.'
-                              f'Для юзерів, якій мають 4-й та 5-й рівень доступу можно закинути файл на дропбокс.')
+    bot.send_message(chat_id, f'Закиньте сюди аудіо файл розміром до 20 Мб.'
+                              f'Або лінк на Dropbox (для 2-го рівня юзерів)')
 
 
     @bot.message_handler(content_types=['audio'])
@@ -208,6 +211,80 @@ def transcribe(message):
             logging.debug(f"dropbox failed {e}")
             bot.send_message(chat_id, f'Щось пішло не так. Спробуйте пізніше')
 
+def conditions(message):
+    chat_id = message.chat.id  # getting user id
+    user = user_dict[chat_id]
+    print(f'Reading conditions by {user.id, user.username, user.firstname}')
+    logging.debug(f'Reading conditions by {user.id, user.username, user.firstname}')
+    bot.send_message(chat_id, f'Вітаю, {user.firstname}! Ми в 2,5 рази зменьшили вартість. Зараз ми надаємо доступ за такий донат:\n'
+                              f'36	грн -	100	хв (без Дропбоксу)\n'
+                              f'82	грн -	200	хв (без Дропбоксу)\n'
+                              f'137	грн -	300	хв (з Дропбоксом)\n'
+                              f'192	грн -	400	хв (з Дропбоксом)\n'
+                              f'251	грн -	500	хв (з Дропбоксом)\n')
+
+def checkMinutes(message):
+    chat_id = message.chat.id  # getting user id
+    user = user_dict[chat_id]
+    print(f'Checking minutes for {user.id, user.username, user.firstname}')
+    logging.debug(f'Checking minutes for {user.id, user.username, user.firstname}')
+    request = f'SELECT Available FROM users WHERE userID={chat_id}'
+    available = connectDB(request)
+    bot.send_message(chat_id, f'На балансі є... {available} хвилин')
+
+def donate(message):
+    chat_id = message.chat.id  # getting user id
+    user = user_dict[chat_id]
+    print(f'User {user.id, user.username, user.firstname} is trying to donate')
+    logging.debug(f'User {user.id, user.username, user.firstname} is trying to donate')
+    bot.send_message(chat_id, f'Зробіть донат за реквізитами: \n'
+                              f'Картка Приват - 5169360006139723 або банка Моно: https://send.monobank.ua/jar/7WQ5ZFZVGQ.\n'
+                              f'Після цього завантажьте сюди квитанцію про оплату та напишіть юзеру https://t.me/oksanaorsach про це'
+                              f'Протягом години ми надамо Вам доступ')
+
+    @bot.message_handler(content_types=['document', 'photo'])
+    def handle_document(message):
+        TIMESTAMP = datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')[:-3]  # with miliseconds
+        # Get the chat ID of the user you want to forward the document to
+        # Replace 'ANOTHER_USER_CHAT_ID' with the actual chat ID of the user
+        target_chat_id = '765494993' #who is on duty today
+        directory = 'payment'
+        if message.document:
+            print('Getting message.document =', message.document)
+            logging.debug('Getting message.document =', message.document)
+
+            fileID = message.document.file_id
+            fileName = message.document.file_name
+            print('fileID, fileName =', fileID, fileName)
+            logging.debug('fileID, fileName =', fileID, fileName)
+            file_info = bot.get_file(fileID)
+            print('file.file_path =', file_info.file_path)
+            logging.debug('file.file_path =', file_info.file_path)
+            downloaded_file = bot.download_file(file_info.file_path)
+            filename = f"{directory}/{fileName}"
+
+        elif message.photo:
+            print('Getting message.photo =', message.photo[-1])
+            logging.debug('Getting message.photo =', message.photo[-1])
+            """Downloading photo"""
+            print('message.photo =', message.photo)
+            fileID = message.photo[-1].file_id
+            print('fileID =', fileID)
+            logging.debug('fileID =', fileID)
+            file_info = bot.get_file(fileID)
+            print('file.file_path =', file_info.file_path)
+            logging.debug('file.file_path =', file_info.file_path)
+            downloaded_file = bot.download_file(file_info.file_path)
+            filename = f"{directory}/donation_{chat_id}_{TIMESTAMP}.jpg"
+        with open(filename, 'wb') as new_file:
+            new_file.write(downloaded_file)
+        file = open(filename, 'rb')
+        # Forward the document to the target user
+        bot.send_document(959676595, file)
+        bot.send_document(target_chat_id, file)
+        bot.send_message(target_chat_id, f'Юзер {user.id, user.username, user.firstname} надіслав квитанцію')
+
+
 def whitelistUsers(chat_id, user_id, firstname):
     request = f'SELECT Level FROM users WHERE userID={chat_id}'
     level = connectDB(request)
@@ -232,7 +309,7 @@ def premListUsers(chat_id, user_id, firstname):
 
 def deadEnd(chat_id, user_id, firstname):
     bot.send_message(chat_id, """Дякую, що звернулись до нас, але, на жаль,  у вас немає доступу цього рівня.
-    Напишіть нам у Фейсбук: https://www.facebook.com/nikcenter, хто ви і для чого потребуєте допомоги бота.""")
+    Зайдіть у меню та зробіть донат""")
     print(f"User with chat ID {chat_id} and user ID {user_id} amd first name {firstname} has been blocked")
     logging.debug(f"User with chat ID {chat_id} and user ID {user_id} amd first name {firstname} has been blocked")
     bot.ban_chat_member(chat_id, user_id)
