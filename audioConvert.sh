@@ -9,7 +9,7 @@ mysql -u bots --password='editor46' transcriber <<EOF
 UPDATE users SET Spent = Spent + $mins WHERE userID=$3;
 UPDATE users SET Available = Allowed - Spent WHERE userID=$3;
 UPDATE users SET Level = 1 WHERE userID='959676595' AND Allowed * 0.9 < Spent;
-UPDATE users SET Level = 0 WHERE userID='959676595' AND Allowed * 0.95 < Spent;>>
+UPDATE users SET Level = 0 WHERE userID='959676595' AND Allowed * 0.95 < Spent;
 EOF
 echo "$min added to user $3"
 
