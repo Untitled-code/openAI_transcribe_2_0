@@ -148,7 +148,7 @@ def transcribe(message):
     user = user_dict[chat_id]
     print(user.id, user.username, user.firstname)
     bot.send_message(chat_id, f'Закиньте сюди аудіо файл розміром до 20 Мб.'
-                              f'Або лінк на Dropbox (для 2-го рівня юзерів)')
+                              f'Якщо файл більший, то завантажьте на Dropbox і дайте лінк (для юзерів 2-го рівня)')
 
 
     @bot.message_handler(content_types=['audio'])
@@ -218,9 +218,9 @@ def conditions(message):
     logging.debug(f'Reading conditions by {user.id, user.username, user.firstname}')
     bot.send_message(chat_id, f'Вітаю, {user.firstname}! Ми в 2,5 рази зменьшили вартість. Зараз ми надаємо доступ за такий донат:\n'
                               f'59	грн -	100	хв (без Дропбоксу до 20 мб)\n'
-                              f'109	грн -	200	хв (без Дропбоксу до 20 мб)\n'
+                              f'109	грн -	200	хв (без Дропбоксу)\n'
                               f'150	грн -	300	хв (без Дропбоксу)\n'
-                              f'200	грн -	400	хв (з Дропбоксом)\n'
+                              f'200	грн -	400	хв (з Дропбоксом для файлів понад 20 мб)\n'
                               f'250	грн -	500	хв (з Дропбоксом)\n'
                               f'450	грн -	1000 хв (з Дропбоксом)\n'
                               f'850	грн -	2000 хв (з Дропбоксом)\n')
