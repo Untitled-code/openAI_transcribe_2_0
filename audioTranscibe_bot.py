@@ -161,6 +161,8 @@ def transcribe(message):
         # blacklistUsers(chat_id, user_id, firstname) #firewall
         whitelistUsers(chat_id, user_id, firstname)  # firewall
         directory, TIMESTAMP = makeFolder(message, chat_id)
+        bot.send_message(chat_id, f'Файл отримано, треба почекати.\n'
+                                  f'Розшифрування може зайняти 1/10 часу від загальної тривалості аудіо')
         """Downloading audio"""
         print('message.audio =', message.audio)
         fileID = message.audio.file_id
@@ -194,7 +196,8 @@ def transcribe(message):
         logging.debug(f'Getting data from class {user_dict[chat_id].firstname}')
         # logging.debug(f'Bot sending filename to {user.firstname}')
         fileUrl = message.text
-
+        bot.send_message(chat_id, f'Файл отримано, треба почекати.\n'
+                                  f'Розшифрування може зайняти 1/10 часу від загальної тривалості аудіо')
         # Download filename
         print(
             f'Dropbox filename is downloadeding {fileUrl} for {user_dict[chat_id].id} {user_dict[chat_id].firstname} {user_dict[chat_id].username}')
