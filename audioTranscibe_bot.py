@@ -217,11 +217,11 @@ def conditions(message):
     print(f'Reading conditions by {user.id, user.username, user.firstname}')
     logging.debug(f'Reading conditions by {user.id, user.username, user.firstname}')
     bot.send_message(chat_id, f'Вітаю, {user.firstname}! Ми в 2,5 рази зменьшили вартість. Зараз ми надаємо доступ за такий донат:\n'
-                              f'59	грн -	100	хв (без Дропбоксу)\n'
-                              f'109	грн -	200	хв (без Дропбоксу)\n'
+                              f'59	грн -	100	хв (без Дропбоксу до 20 мб)\n'
+                              f'109	грн -	200	хв (без Дропбоксу до 20 мб)\n'
                               f'150	грн -	300	хв (з Дропбоксом)\n'
-                              f'192	грн -	400	хв (з Дропбоксом)\n'
-                              f'228	грн -	500	хв (з Дропбоксом)\n')
+                              f'201	грн -	400	хв (з Дропбоксом)\n'
+                              f'251	грн -	500	хв (з Дропбоксом)\n')
 
 def checkMinutes(message):
     chat_id = message.chat.id  # getting user id
