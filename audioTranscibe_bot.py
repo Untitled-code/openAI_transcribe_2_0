@@ -46,7 +46,7 @@ menu = {
         ['Почати транскрибування', 'option1'],
         ['Перевірити кількість доступних хвилин', 'option2'],
         ['Зробити донат', 'option3'],
-        ['Умови користування', 'option4'],
+        ['Як підключити бота', 'option4'],
         ['Back', 'menu']
     ]
     # ,
@@ -243,7 +243,7 @@ def donate(message):
     print(f'User {user.id, user.username, user.firstname} is trying to donate')
     logging.debug(f'User {user.id, user.username, user.firstname} is trying to donate')
     bot.send_message(chat_id, f'Зробіть донат за реквізитами: \n'
-                              f'Картка Приват - 5169360006139723 або банка Моно: https://send.monobank.ua/jar/7WQ5ZFZVGQ.\n'
+                              f'Картка Приват - 5169360006139723 або банка Моно: https://send.monobank.ua/jar/2DxPtEsHnF\n'
                               f'Після цього завантажьте сюди квитанцію про оплату та напишіть юзеру https://t.me/oksanaorsach про це'
                               f'Протягом години ми надамо Вам доступ')
 
