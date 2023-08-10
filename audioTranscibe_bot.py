@@ -21,9 +21,8 @@ logging.basicConfig(filename='transcriber_bot.log', level=logging.DEBUG, format=
 #TODO minutes left after transcribing
 
 
-
 API_TOKEN = os.environ.get('AUDIOOPENAI')
-# API_TOKEN = '2073537137:AAESpDgrCAOIDLYClFtG3-zc5LAl6baZS9k'
+# API_TOKEN = '2073537137:AAESpDgrCAOIDLYClFtG3-zc5LAl6baZS9k' #test bot
 print(API_TOKEN)
 bot = telebot.TeleBot(API_TOKEN)
 
@@ -107,6 +106,22 @@ def request_phone_number(message):
     markup.add(phone_button)
 
     # bot.send_message(message.chat.id, "Будь ласка, надайте ваш номер телефону:", reply_markup=markup)
+
+#who is on duty today
+def selectUser():
+    # declaring user, who is on duty
+    target_chat_ids = [{'@alona_ptk': '650797454'}, {'+380936603345': '521797754'},
+                       {'@oksanaorsach': '765494993'}, {'@sandra_hudoznik5': '943675970'}]
+    current_datetime = datetime.datetime.now()
+    week_number = (current_datetime.day - 1) // 7 + 1
+    if week_number <= len(target_chat_ids):
+        user_info = target_chat_ids[week_number - 1]
+        for username, chat_id in user_info.items():
+            print(f'the week is {week_number} and on duty {username, chat_id}')
+            logging.debug(f'the week is {week_number} and on duty {username, chat_id}')
+            return username, chat_id
+
+
 
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
@@ -240,11 +255,12 @@ def checkMinutes(message):
 def donate(message):
     chat_id = message.chat.id  # getting user id
     user = user_dict[chat_id]
+    target_chat_id = selectUser()  # who is on duty today
     print(f'User {user.id, user.username, user.firstname} is trying to donate')
     logging.debug(f'User {user.id, user.username, user.firstname} is trying to donate')
     bot.send_message(chat_id, f'Зробіть донат за реквізитами: \n'
                               f'Картка Приват - 5169360006139723 або банка Моно: https://send.monobank.ua/jar/2DxPtEsHnF\n'
-                              f'Після цього завантажьте сюди квитанцію про оплату та напишіть юзеру https://t.me/oksanaorsach про це'
+                              f'Після цього завантажьте прямо сюди квитанцію про оплату та напишіть юзеру {target_chat_id[0]} про це\n'
                               f'Протягом години ми надамо Вам доступ')
 
     @bot.message_handler(content_types=['document', 'photo'])
@@ -252,7 +268,7 @@ def donate(message):
         TIMESTAMP = datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')[:-3]  # with miliseconds
         # Get the chat ID of the user you want to forward the document to
         # Replace 'ANOTHER_USER_CHAT_ID' with the actual chat ID of the user
-        target_chat_id = '765494993' #who is on duty today
+        target_chat_id = selectUser() #who is on duty today
         directory = 'payment'
         if message.document:
             print('Getting message.document =', message.document)
@@ -283,11 +299,13 @@ def donate(message):
             filename = f"{directory}/donation_{chat_id}_{TIMESTAMP}.jpg"
         with open(filename, 'wb') as new_file:
             new_file.write(downloaded_file)
+        print(f'User {user.id, user.username, user.firstname} uploaded doc in donation')
+        logging.debug(f'User {user.id, user.username, user.firstname} uploaded doc in donation')
         file = open(filename, 'rb')
         # Forward the document to the target user
-        bot.send_document(959676595, file)
-        bot.send_document(target_chat_id, file)
-        bot.send_message(target_chat_id, f'Юзер {user.id, user.username, user.firstname} надіслав квитанцію')
+        bot.send_document(959676595, file, f'Юзер {user.id, user.username, user.firstname} наче надіслав квитанцію')
+        bot.send_document(target_chat_id[1], file)
+        bot.send_message(target_chat_id[1], f'Юзер {user.id, user.username, user.firstname} пробує підключитися')
 
 
 def whitelistUsers(chat_id, user_id, firstname):
