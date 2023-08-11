@@ -110,7 +110,7 @@ def request_phone_number(message):
 #who is on duty today
 def selectUser():
     # declaring user, who is on duty
-    target_chat_ids = [{'@alona_ptk': '650797454'}, {'+380936603345': '521797754'},
+    target_chat_ids = [{'@alona_ptk': '650797454'}, {'@alesia215': '521797754'},
                        {'@oksanaorsach': '765494993'}, {'@sandra_hudoznik5': '943675970'}]
     current_datetime = datetime.datetime.now()
     week_number = (current_datetime.day - 1) // 7 + 1
