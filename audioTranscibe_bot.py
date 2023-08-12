@@ -240,8 +240,8 @@ def conditions(message):
                               f'150	грн -	300	хв (без Дропбоксу)\n'
                               f'200	грн -	400	хв (з Дропбоксом для файлів понад 20 мб)\n'
                               f'250	грн -	500	хв (з Дропбоксом)\n'
-                              f'450	грн -	1000 хв (з Дропбоксом)\n'
-                              f'850	грн -	2000 хв (з Дропбоксом)\n')
+                              f'460	грн -	1000 хв (з Дропбоксом)\n'
+                              f'900	грн -	2000 хв (з Дропбоксом)\n')
 
 def checkMinutes(message):
     chat_id = message.chat.id  # getting user id
@@ -266,6 +266,10 @@ def donate(message):
     @bot.message_handler(content_types=['document', 'photo'])
     def handle_document(message):
         TIMESTAMP = datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')[:-3]  # with miliseconds
+        chat_id = message.chat.id  # getting user id
+        user = user_dict[chat_id]
+        print(f'User {user.id, user.username, user.firstname} uploaded doc in donation')
+        logging.debug(f'User {user.id, user.username, user.firstname} uploaded doc in donation')
         # Get the chat ID of the user you want to forward the document to
         # Replace 'ANOTHER_USER_CHAT_ID' with the actual chat ID of the user
         target_chat_id = selectUser() #who is on duty today
@@ -299,11 +303,10 @@ def donate(message):
             filename = f"{directory}/donation_{chat_id}_{TIMESTAMP}.jpg"
         with open(filename, 'wb') as new_file:
             new_file.write(downloaded_file)
-        print(f'User {user.id, user.username, user.firstname} uploaded doc in donation')
-        logging.debug(f'User {user.id, user.username, user.firstname} uploaded doc in donation')
+
         file = open(filename, 'rb')
         # Forward the document to the target user
-        bot.send_document(959676595, file, f'Юзер {user.id, user.username, user.firstname} наче надіслав квитанцію')
+        bot.send_document(959676595, file)
         bot.send_document(target_chat_id[1], file)
         bot.send_message(target_chat_id[1], f'Юзер {user.id, user.username, user.firstname} пробує підключитися')
 
