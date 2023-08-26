@@ -21,8 +21,8 @@ logging.basicConfig(filename='transcriber_bot.log', level=logging.DEBUG, format=
 #TODO minutes left after transcribing
 
 
-# API_TOKEN = os.environ.get('AUDIOOPENAI')
-API_TOKEN = '2073537137:AAESpDgrCAOIDLYClFtG3-zc5LAl6baZS9k' #test bot
+API_TOKEN = os.environ.get('AUDIOOPENAI')
+# API_TOKEN = '2073537137:AAESpDgrCAOIDLYClFtG3-zc5LAl6baZS9k' #test bot
 print(API_TOKEN)
 bot = telebot.TeleBot(API_TOKEN)
 
