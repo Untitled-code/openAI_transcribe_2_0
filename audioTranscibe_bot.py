@@ -42,10 +42,10 @@ logging.debug("Listening...")
 # Define menu structure
 menu = {
     'main': [
-        ['Почати транскрибування', 'option1'],
-        ['Перевірити кількість доступних хвилин', 'option2'],
-        ['Зробити донат', 'option3'],
-        ['Як підключити бота', 'option4'],
+        ['Почати транскрибування / Start transcribing', 'option1'],
+        ['Перевірити доступні хвилин / Check available minutes', 'option2'],
+        ['Зробити донат / Make donations', 'option3'],
+        ['Як користуватись ботом / How to use the bot', 'option4'],
         ['Back', 'menu']
     ]
     # ,
@@ -127,7 +127,10 @@ def selectUser():
 def send_welcome(message):
     bot.send_message(message.chat.id, """\
 Привіт! Я оновлений бот проекту nikcenter.org для розшифровки аудіо та відеофайлів за допомогою AI chatGPT.\n
-Вибери, що потрібно в меню:""", reply_markup=make_keyboard('main'))
+Вибери, що потрібно в меню\n
+--------------------------\n
+Hello! I am an updated bot of the nikcenter.org project to transcribe audio and video files using AI chatGPT.\n
+Choose what you need from the menu\n""", reply_markup=make_keyboard('main'))
     user_id = message.chat.id
     firstname = message.from_user.first_name  # getting name of user
     username = message.from_user.username  # getting name of username
@@ -256,6 +259,7 @@ def donate(message):
     chat_id = message.chat.id  # getting user id
     user = user_dict[chat_id]
     target_chat_id = selectUser()  # who is on duty today
+    target_chat_id = {'@Lellya2020': '949507258'}  # who is on duty today
     print(f'User {user.id, user.username, user.firstname} is trying to donate')
     logging.debug(f'User {user.id, user.username, user.firstname} is trying to donate')
     bot.send_message(chat_id, f'Зробіть донат за реквізитами: \n'
