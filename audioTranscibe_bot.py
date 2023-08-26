@@ -21,8 +21,8 @@ logging.basicConfig(filename='transcriber_bot.log', level=logging.DEBUG, format=
 #TODO minutes left after transcribing
 
 
-API_TOKEN = os.environ.get('AUDIOOPENAI')
-# API_TOKEN = '2073537137:AAESpDgrCAOIDLYClFtG3-zc5LAl6baZS9k' #test bot
+# API_TOKEN = os.environ.get('AUDIOOPENAI')
+API_TOKEN = '2073537137:AAESpDgrCAOIDLYClFtG3-zc5LAl6baZS9k' #test bot
 print(API_TOKEN)
 bot = telebot.TeleBot(API_TOKEN)
 
@@ -44,7 +44,7 @@ menu = {
     'main': [
         ['Почати транскрибування / Start transcribing', 'option1'],
         ['Перевірити доступні хвилин / Check available minutes', 'option2'],
-        ['Зробити донат / Make donations', 'option3'],
+        ['Розмір донатів / Donations', 'option3'],
         ['Як користуватись ботом / How to use the bot', 'option4'],
         ['Back', 'menu']
     ]
@@ -126,10 +126,10 @@ def selectUser():
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
     bot.send_message(message.chat.id, """\
-Привіт! Я оновлений бот проекту nikcenter.org для розшифровки аудіо та відеофайлів за допомогою AI chatGPT.\n
+Привіт! Я оновлений бот проекту nikcenter.org для розшифровки аудіо (будь-яка мова) та відеофайлів за допомогою AI chatGPT.\n
 Вибери, що потрібно в меню\n
 --------------------------\n
-Hello! I am an updated bot of the nikcenter.org project to transcribe audio and video files using AI chatGPT.\n
+Hello! I am an updated bot of the nikcenter.org project to transcribe audio (any language) and video files using AI chatGPT.\n
 Choose what you need from the menu\n""", reply_markup=make_keyboard('main'))
     user_id = message.chat.id
     firstname = message.from_user.first_name  # getting name of user
@@ -259,7 +259,7 @@ def donate(message):
     chat_id = message.chat.id  # getting user id
     user = user_dict[chat_id]
     target_chat_id = selectUser()  # who is on duty today
-    target_chat_id = {'@Lellya2020': '949507258'}  # who is on duty today
+    target_chat_id = ['@Lellya2020', '949507258']  # who is on duty today
     print(f'User {user.id, user.username, user.firstname} is trying to donate')
     logging.debug(f'User {user.id, user.username, user.firstname} is trying to donate')
     bot.send_message(chat_id, f'Зробіть донат за реквізитами: \n'
