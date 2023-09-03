@@ -92,9 +92,9 @@ def handle_query(call):
     elif call.data == 'option2':
         checkMinutes(call.message) #calling function
     elif call.data == 'option3':
-        donate(call.message) #calling function
-    elif call.data == 'option4':
         conditions(call.message) #calling function
+    elif call.data == 'option4':
+        donate(call.message) #calling function
     elif call.data in menu:
         bot.edit_message_text('You are in a submenu:', chat_id=call.message.chat.id, message_id=call.message.message_id, reply_markup=make_keyboard(call.data))
     else:
@@ -252,8 +252,14 @@ def checkMinutes(message):
     print(f'Checking minutes for {user.id, user.username, user.firstname}')
     logging.debug(f'Checking minutes for {user.id, user.username, user.firstname}')
     request = f'SELECT Available FROM users WHERE userID={chat_id}'
-    available = connectDB(request)
-    bot.send_message(chat_id, f'На балансі є... {available} хвилин')
+    try:
+        available = connectDB(request)
+        print(f'available {available}')
+        bot.send_message(chat_id, f'На балансі є... {available} хвилин')
+    except TypeError:
+        print(f'available - None')
+        bot.send_message(chat_id, f'У вас немає доступних хвилин'
+                                  f'\nБудь ласка зробіть донат, і ми Вас підключемо до бота')
 
 def donate(message):
     chat_id = message.chat.id  # getting user id
