@@ -171,33 +171,40 @@ def transcribe(message):
 
     @bot.message_handler(content_types=['audio'])
     def audio(message):
-        chat_id = message.chat.id  # getting user id
-        user_id = message.from_user.id
-        firstname = message.from_user.first_name
-        print(f"User has chat ID {chat_id} and user ID {user_id}")
-        logging.debug(f"User has chat ID {chat_id} and user ID {user_id}")
-        # blacklistUsers(chat_id, user_id, firstname) #firewall
-        whitelistUsers(chat_id, user_id, firstname)  # firewall
-        directory, TIMESTAMP = makeFolder(message, chat_id)
-        bot.send_message(chat_id, f'Файл отримано, треба почекати.\n'
-                                  f'Розшифрування може зайняти 1/10 часу від загальної тривалості аудіо')
-        """Downloading audio"""
-        print('message.audio =', message.audio)
-        fileID = message.audio.file_id
-        fileName = message.audio.file_name
-        print('fileID, fileName =', fileID, fileName)
-        logging.debug('fileID, fileName =', fileID, fileName)
-        file_info = bot.get_file(fileID)
-        print('file.file_path =', file_info.file_path)
-        logging.debug('file.file_path =', file_info.file_path)
-        downloaded_file = bot.download_file(file_info.file_path)
-        # filename = f"{directory}/audio_{TIMESTAMP}.wav"
-        filename = f"{directory}/{fileName}"
-        with open(filename, 'wb') as new_file:
-            new_file.write(downloaded_file)
-        print(filename, directory, TIMESTAMP)
-        logging.debug(filename, directory, TIMESTAMP)
-        finalRes(chat_id, filename, directory, TIMESTAMP)
+        try:
+            chat_id = message.chat.id  # getting user id
+            user_id = message.from_user.id
+            firstname = message.from_user.first_name
+            print(f"User has chat ID {chat_id} and user ID {user_id}")
+            logging.debug(f"User has chat ID {chat_id} and user ID {user_id}")
+            # blacklistUsers(chat_id, user_id, firstname) #firewall
+            whitelistUsers(chat_id, user_id, firstname)  # firewall
+            directory, TIMESTAMP = makeFolder(message, chat_id)
+            bot.send_message(chat_id, f'Файл отримано, треба почекати.\n'
+                                      f'Розшифрування може зайняти 1/10 часу від загальної тривалості аудіо')
+            """Downloading audio"""
+            print('message.audio =', message.audio)
+            fileID = message.audio.file_id
+            fileName = message.audio.file_name
+            print('fileID, fileName =', fileID, fileName)
+            logging.debug('fileID, fileName =', fileID, fileName)
+            file_info = bot.get_file(fileID)
+            print('file.file_path =', file_info.file_path)
+            logging.debug('file.file_path =', file_info.file_path)
+            downloaded_file = bot.download_file(file_info.file_path)
+            # filename = f"{directory}/audio_{TIMESTAMP}.wav"
+            filename = f"{directory}/{fileName}"
+            with open(filename, 'wb') as new_file:
+                new_file.write(downloaded_file)
+            print(filename, directory, TIMESTAMP)
+            logging.debug(filename, directory, TIMESTAMP)
+            finalRes(chat_id, filename, directory, TIMESTAMP)
+        except Exception as e:
+            print(f"Audio upload  failed {e}")
+            logging.debug(f"Audio upload failed {e}")
+            bot.send_message(chat_id, f'Щось пішло не так. Спробуйте пізніше. '
+                                      f'\nМожливо, ви завантажуєте файл більший за 20МБ (20 000 000 байт).'
+                                      f'\nВ цьому разі Вам потрібно підключти Dropbox.')
 
     @bot.message_handler(regexp="dropbox")  # handle link with dropbox
     def handle_message(message):
