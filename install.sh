@@ -1,5 +1,5 @@
 #!/bin/bash
 mkdir venv
-python python -m venv ./venv
-./venv/bin/pip  install -r ./requirements.txt
+python3 -m venv .venv
+./venv/bin/pip3  install -r ./requirements.txt
 
