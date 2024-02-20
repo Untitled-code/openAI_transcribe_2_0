@@ -45,7 +45,7 @@ def main(audio_file, directory, timestamp):
         f.write(full_transcription)
 
 if __name__ == "__main__":
-    filename='dir_959676595_Oleg_d09ed0bbd0b5d0b3/18 Efuge Efuge.mp3'
-    directory = 'dir_959676595_Oleg_d09ed0bbd0b5d0b3'
-    timestamp='1232432'
+    # filename='dir_959676595_Oleg_d09ed0bbd0b5d0b3/18 Efuge Efuge.mp3'
+    # directory = 'dir_959676595_Oleg_d09ed0bbd0b5d0b3'
+    # timestamp='1232432'
     main(filename, directory, timestamp)
