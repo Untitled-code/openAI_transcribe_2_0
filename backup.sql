@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.35, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.36, for Linux (x86_64)
 --
 -- Host: localhost    Database: 
 -- ------------------------------------------------------
--- Server version	8.0.35-0ubuntu0.20.04.1
+-- Server version	8.0.36-0ubuntu0.22.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -21,7 +21,7 @@
 -- Current Database: `mysql`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `mysql` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `mysql` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
 USE `mysql`;
 
@@ -34,10 +34,10 @@ DROP TABLE IF EXISTS `columns_priv`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `columns_priv` (
   `Host` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
-  `Db` char(64) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
-  `User` char(32) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
-  `Table_name` char(64) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
-  `Column_name` char(64) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `Db` char(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `User` char(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `Table_name` char(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `Column_name` char(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `Column_priv` set('Select','Insert','Update','References') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`Host`,`User`,`Db`,`Table_name`,`Column_name`)
@@ -86,8 +86,8 @@ DROP TABLE IF EXISTS `db`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `db` (
   `Host` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
-  `Db` char(64) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
-  `User` char(32) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `Db` char(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `User` char(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
   `Select_priv` enum('N','Y') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT 'N',
   `Insert_priv` enum('N','Y') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT 'N',
   `Update_priv` enum('N','Y') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT 'N',
@@ -131,9 +131,9 @@ DROP TABLE IF EXISTS `default_roles`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `default_roles` (
   `HOST` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
-  `USER` char(32) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `USER` char(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
   `DEFAULT_ROLE_HOST` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '%',
-  `DEFAULT_ROLE_USER` char(32) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `DEFAULT_ROLE_USER` char(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
   PRIMARY KEY (`HOST`,`USER`,`DEFAULT_ROLE_HOST`,`DEFAULT_ROLE_USER`)
 ) /*!50100 TABLESPACE `mysql` */ ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin STATS_PERSISTENT=0 ROW_FORMAT=DYNAMIC COMMENT='Default roles';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -184,9 +184,9 @@ DROP TABLE IF EXISTS `func`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `func` (
-  `name` char(64) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `name` char(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
   `ret` tinyint NOT NULL DEFAULT '0',
-  `dl` char(128) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `dl` char(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
   `type` enum('function','aggregate') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   PRIMARY KEY (`name`)
 ) /*!50100 TABLESPACE `mysql` */ ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin STATS_PERSISTENT=0 ROW_FORMAT=DYNAMIC COMMENT='User defined functions';
@@ -209,7 +209,7 @@ DROP TABLE IF EXISTS `global_grants`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `global_grants` (
-  `USER` char(32) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `USER` char(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
   `HOST` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
   `PRIV` char(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '',
   `WITH_GRANT_OPTION` enum('N','Y') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT 'N',
@@ -352,7 +352,7 @@ UNLOCK TABLES;
 --
 
 /*!40000 ALTER TABLE `innodb_index_stats` DISABLE KEYS */;
-INSERT  IGNORE INTO `innodb_index_stats` VALUES ('mysql','component','PRIMARY','2023-12-24 12:09:46','n_diff_pfx01',0,1,'component_id'),('mysql','component','PRIMARY','2023-12-24 12:09:46','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('mysql','component','PRIMARY','2023-12-24 12:09:46','size',1,NULL,'Number of pages in the index'),('nctables','covid19','PRIMARY','2022-12-12 20:17:39','n_diff_pfx01',0,1,'id'),('nctables','covid19','PRIMARY','2022-12-12 20:17:39','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('nctables','covid19','PRIMARY','2022-12-12 20:17:39','size',1,NULL,'Number of pages in the index'),('nctables','nclogs','GEN_CLUST_INDEX','2022-12-12 20:18:02','n_diff_pfx01',12,1,'DB_ROW_ID'),('nctables','nclogs','GEN_CLUST_INDEX','2022-12-12 20:18:02','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('nctables','nclogs','GEN_CLUST_INDEX','2022-12-12 20:18:02','size',1,NULL,'Number of pages in the index'),('nctables','reforms_experts','PRIMARY','2022-12-12 20:17:40','n_diff_pfx01',17,1,'id'),('nctables','reforms_experts','PRIMARY','2022-12-12 20:17:40','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('nctables','reforms_experts','PRIMARY','2022-12-12 20:17:40','size',1,NULL,'Number of pages in the index'),('nctables','reforms_infograph','PRIMARY','2022-12-12 20:17:41','n_diff_pfx01',10,1,'id'),('nctables','reforms_infograph','PRIMARY','2022-12-12 20:17:41','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('nctables','reforms_infograph','PRIMARY','2022-12-12 20:17:41','size',1,NULL,'Number of pages in the index'),('nctables','signups_test','PRIMARY','2022-12-12 20:17:51','n_diff_pfx01',15,1,'signups_id'),('nctables','signups_test','PRIMARY','2022-12-12 20:17:51','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('nctables','signups_test','PRIMARY','2022-12-12 20:17:51','size',1,NULL,'Number of pages in the index'),('nctables','signups_test_new','GEN_CLUST_INDEX','2022-12-12 20:18:12','n_diff_pfx01',17,1,'DB_ROW_ID'),('nctables','signups_test_new','GEN_CLUST_INDEX','2022-12-12 20:18:12','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('nctables','signups_test_new','GEN_CLUST_INDEX','2022-12-12 20:18:12','size',1,NULL,'Number of pages in the index'),('sys','sys_config','PRIMARY','2022-12-12 19:58:02','n_diff_pfx01',6,1,'variable'),('sys','sys_config','PRIMARY','2022-12-12 19:58:02','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('sys','sys_config','PRIMARY','2022-12-12 19:58:02','size',1,NULL,'Number of pages in the index'),('transcriber','users','GEN_CLUST_INDEX','2023-12-20 15:20:50','n_diff_pfx01',98,1,'DB_ROW_ID'),('transcriber','users','GEN_CLUST_INDEX','2023-12-20 15:20:50','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('transcriber','users','GEN_CLUST_INDEX','2023-12-20 15:20:50','size',1,NULL,'Number of pages in the index'),('transcriber','users_test','GEN_CLUST_INDEX','2023-07-28 13:37:38','n_diff_pfx01',37,1,'DB_ROW_ID'),('transcriber','users_test','GEN_CLUST_INDEX','2023-07-28 13:37:38','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('transcriber','users_test','GEN_CLUST_INDEX','2023-07-28 13:37:38','size',1,NULL,'Number of pages in the index'),('vybor','article','PRIMARY','2023-03-31 13:48:08','n_diff_pfx01',48,20,'id'),('vybor','article','PRIMARY','2023-03-31 13:48:08','n_leaf_pages',38,NULL,'Number of leaf pages in the index'),('vybor','article','PRIMARY','2023-03-31 13:48:08','size',97,NULL,'Number of pages in the index'),('vybor','article','fk_article_author','2023-03-31 13:48:08','n_diff_pfx01',1,1,'created_by'),('vybor','article','fk_article_author','2023-03-31 13:48:08','n_diff_pfx02',87,1,'created_by,id'),('vybor','article','fk_article_author','2023-03-31 13:48:08','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','article','fk_article_author','2023-03-31 13:48:08','size',1,NULL,'Number of pages in the index'),('vybor','article','fk_article_category','2023-03-31 13:48:08','n_diff_pfx01',6,1,'category_id'),('vybor','article','fk_article_category','2023-03-31 13:48:08','n_diff_pfx02',87,1,'category_id,id'),('vybor','article','fk_article_category','2023-03-31 13:48:08','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','article','fk_article_category','2023-03-31 13:48:08','size',1,NULL,'Number of pages in the index'),('vybor','article','fk_article_updater','2023-03-31 13:48:08','n_diff_pfx01',1,1,'updated_by'),('vybor','article','fk_article_updater','2023-03-31 13:48:08','n_diff_pfx02',87,1,'updated_by,id'),('vybor','article','fk_article_updater','2023-03-31 13:48:08','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','article','fk_article_updater','2023-03-31 13:48:08','size',1,NULL,'Number of pages in the index'),('vybor','article_attachment','PRIMARY','2023-03-31 13:47:58','n_diff_pfx01',0,1,'id'),('vybor','article_attachment','PRIMARY','2023-03-31 13:47:58','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','article_attachment','PRIMARY','2023-03-31 13:47:58','size',1,NULL,'Number of pages in the index'),('vybor','article_attachment','fk_article_attachment_article','2023-03-31 13:47:58','n_diff_pfx01',0,1,'article_id'),('vybor','article_attachment','fk_article_attachment_article','2023-03-31 13:47:58','n_diff_pfx02',0,1,'article_id,id'),('vybor','article_attachment','fk_article_attachment_article','2023-03-31 13:47:58','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','article_attachment','fk_article_attachment_article','2023-03-31 13:47:58','size',1,NULL,'Number of pages in the index'),('vybor','article_category','PRIMARY','2023-03-31 13:48:00','n_diff_pfx01',8,1,'id'),('vybor','article_category','PRIMARY','2023-03-31 13:48:00','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','article_category','PRIMARY','2023-03-31 13:48:00','size',1,NULL,'Number of pages in the index'),('vybor','article_category','fk_article_category_section','2023-03-31 13:48:00','n_diff_pfx01',2,1,'parent_id'),('vybor','article_category','fk_article_category_section','2023-03-31 13:48:00','n_diff_pfx02',8,1,'parent_id,id'),('vybor','article_category','fk_article_category_section','2023-03-31 13:48:00','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','article_category','fk_article_category_section','2023-03-31 13:48:00','size',1,NULL,'Number of pages in the index'),('vybor','deputa','PRIMARY','2023-03-31 13:47:59','n_diff_pfx01',0,1,'id_pk'),('vybor','deputa','PRIMARY','2023-03-31 13:47:59','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','deputa','PRIMARY','2023-03-31 13:47:59','size',1,NULL,'Number of pages in the index'),('vybor','file_storage_item','PRIMARY','2023-03-31 13:48:03','n_diff_pfx01',116,2,'id'),('vybor','file_storage_item','PRIMARY','2023-03-31 13:48:03','n_leaf_pages',2,NULL,'Number of leaf pages in the index'),('vybor','file_storage_item','PRIMARY','2023-03-31 13:48:03','size',3,NULL,'Number of pages in the index'),('vybor','i18n_message','PRIMARY','2023-03-31 13:48:00','n_diff_pfx01',0,1,'id'),('vybor','i18n_message','PRIMARY','2023-03-31 13:48:00','n_diff_pfx02',0,1,'id,language'),('vybor','i18n_message','PRIMARY','2023-03-31 13:48:00','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','i18n_message','PRIMARY','2023-03-31 13:48:00','size',1,NULL,'Number of pages in the index'),('vybor','i18n_source_message','PRIMARY','2023-03-31 13:48:00','n_diff_pfx01',0,1,'id'),('vybor','i18n_source_message','PRIMARY','2023-03-31 13:48:00','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','i18n_source_message','PRIMARY','2023-03-31 13:48:00','size',1,NULL,'Number of pages in the index'),('vybor','key_storage_item','PRIMARY','2023-03-31 13:48:03','n_diff_pfx01',5,1,'key'),('vybor','key_storage_item','PRIMARY','2023-03-31 13:48:03','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','key_storage_item','PRIMARY','2023-03-31 13:48:03','size',1,NULL,'Number of pages in the index'),('vybor','key_storage_item','idx_key_storage_item_key','2023-03-31 13:48:03','n_diff_pfx01',5,1,'key'),('vybor','key_storage_item','idx_key_storage_item_key','2023-03-31 13:48:03','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','key_storage_item','idx_key_storage_item_key','2023-03-31 13:48:03','size',1,NULL,'Number of pages in the index'),('vybor','page','PRIMARY','2023-03-31 13:48:01','n_diff_pfx01',0,1,'id'),('vybor','page','PRIMARY','2023-03-31 13:48:01','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','page','PRIMARY','2023-03-31 13:48:01','size',1,NULL,'Number of pages in the index'),('vybor','rbac_auth_assignment','PRIMARY','2023-03-31 13:48:02','n_diff_pfx01',0,1,'item_name'),('vybor','rbac_auth_assignment','PRIMARY','2023-03-31 13:48:02','n_diff_pfx02',0,1,'item_name,user_id'),('vybor','rbac_auth_assignment','PRIMARY','2023-03-31 13:48:02','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','rbac_auth_assignment','PRIMARY','2023-03-31 13:48:02','size',1,NULL,'Number of pages in the index'),('vybor','rbac_auth_item','PRIMARY','2023-03-31 13:48:05','n_diff_pfx01',5,1,'name'),('vybor','rbac_auth_item','PRIMARY','2023-03-31 13:48:05','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','rbac_auth_item','PRIMARY','2023-03-31 13:48:05','size',1,NULL,'Number of pages in the index'),('vybor','rbac_auth_item','idx-auth_item-type','2023-03-31 13:48:05','n_diff_pfx01',2,1,'type'),('vybor','rbac_auth_item','idx-auth_item-type','2023-03-31 13:48:05','n_diff_pfx02',5,1,'type,name'),('vybor','rbac_auth_item','idx-auth_item-type','2023-03-31 13:48:05','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','rbac_auth_item','idx-auth_item-type','2023-03-31 13:48:05','size',1,NULL,'Number of pages in the index'),('vybor','rbac_auth_item','rule_name','2023-03-31 13:48:05','n_diff_pfx01',2,1,'rule_name'),('vybor','rbac_auth_item','rule_name','2023-03-31 13:48:05','n_diff_pfx02',5,1,'rule_name,name'),('vybor','rbac_auth_item','rule_name','2023-03-31 13:48:05','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','rbac_auth_item','rule_name','2023-03-31 13:48:05','size',1,NULL,'Number of pages in the index'),('vybor','rbac_auth_item_child','PRIMARY','2023-03-31 13:48:07','n_diff_pfx01',3,1,'parent'),('vybor','rbac_auth_item_child','PRIMARY','2023-03-31 13:48:07','n_diff_pfx02',4,1,'parent,child'),('vybor','rbac_auth_item_child','PRIMARY','2023-03-31 13:48:07','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','rbac_auth_item_child','PRIMARY','2023-03-31 13:48:07','size',1,NULL,'Number of pages in the index'),('vybor','rbac_auth_item_child','child','2023-03-31 13:48:07','n_diff_pfx01',4,1,'child'),('vybor','rbac_auth_item_child','child','2023-03-31 13:48:07','n_diff_pfx02',4,1,'child,parent'),('vybor','rbac_auth_item_child','child','2023-03-31 13:48:07','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','rbac_auth_item_child','child','2023-03-31 13:48:07','size',1,NULL,'Number of pages in the index'),('vybor','rbac_auth_rule','PRIMARY','2023-03-31 13:48:04','n_diff_pfx01',0,1,'name'),('vybor','rbac_auth_rule','PRIMARY','2023-03-31 13:48:04','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','rbac_auth_rule','PRIMARY','2023-03-31 13:48:04','size',1,NULL,'Number of pages in the index'),('vybor','system_db_migration','PRIMARY','2023-03-31 13:48:07','n_diff_pfx01',16,1,'version'),('vybor','system_db_migration','PRIMARY','2023-03-31 13:48:07','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','system_db_migration','PRIMARY','2023-03-31 13:48:07','size',1,NULL,'Number of pages in the index'),('vybor','system_log','PRIMARY','2023-03-31 13:48:10','n_diff_pfx01',235,20,'id'),('vybor','system_log','PRIMARY','2023-03-31 13:48:10','n_leaf_pages',44,NULL,'Number of leaf pages in the index'),('vybor','system_log','PRIMARY','2023-03-31 13:48:10','size',97,NULL,'Number of pages in the index'),('vybor','system_log','idx_log_category','2023-03-31 13:48:10','n_diff_pfx01',6,1,'category'),('vybor','system_log','idx_log_category','2023-03-31 13:48:10','n_diff_pfx02',281,1,'category,id'),('vybor','system_log','idx_log_category','2023-03-31 13:48:10','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','system_log','idx_log_category','2023-03-31 13:48:10','size',1,NULL,'Number of pages in the index'),('vybor','system_log','idx_log_level','2023-03-31 13:48:10','n_diff_pfx01',1,1,'level'),('vybor','system_log','idx_log_level','2023-03-31 13:48:10','n_diff_pfx02',281,1,'level,id'),('vybor','system_log','idx_log_level','2023-03-31 13:48:10','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','system_log','idx_log_level','2023-03-31 13:48:10','size',1,NULL,'Number of pages in the index'),('vybor','system_rbac_migration','PRIMARY','2023-03-31 13:48:11','n_diff_pfx01',4,1,'version'),('vybor','system_rbac_migration','PRIMARY','2023-03-31 13:48:11','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','system_rbac_migration','PRIMARY','2023-03-31 13:48:11','size',1,NULL,'Number of pages in the index'),('vybor','tbl_poll','PRIMARY','2023-03-31 13:48:12','n_diff_pfx01',120,1,'poll_id'),('vybor','tbl_poll','PRIMARY','2023-03-31 13:48:12','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','tbl_poll','PRIMARY','2023-03-31 13:48:12','size',1,NULL,'Number of pages in the index'),('vybor','timeline_event','PRIMARY','2023-03-31 13:48:13','n_diff_pfx01',5,1,'id'),('vybor','timeline_event','PRIMARY','2023-03-31 13:48:13','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','timeline_event','PRIMARY','2023-03-31 13:48:13','size',1,NULL,'Number of pages in the index'),('vybor','timeline_event','idx_created_at','2023-03-31 13:48:13','n_diff_pfx01',3,1,'created_at'),('vybor','timeline_event','idx_created_at','2023-03-31 13:48:13','n_diff_pfx02',5,1,'created_at,id'),('vybor','timeline_event','idx_created_at','2023-03-31 13:48:13','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','timeline_event','idx_created_at','2023-03-31 13:48:13','size',1,NULL,'Number of pages in the index'),('vybor','user','PRIMARY','2023-03-31 13:48:08','n_diff_pfx01',0,1,'id'),('vybor','user','PRIMARY','2023-03-31 13:48:08','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','user','PRIMARY','2023-03-31 13:48:08','size',1,NULL,'Number of pages in the index'),('vybor','user_profile','PRIMARY','2023-03-31 13:48:09','n_diff_pfx01',0,1,'user_id'),('vybor','user_profile','PRIMARY','2023-03-31 13:48:09','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','user_profile','PRIMARY','2023-03-31 13:48:09','size',1,NULL,'Number of pages in the index'),('vybor','user_token','PRIMARY','2023-03-31 13:48:09','n_diff_pfx01',0,1,'id'),('vybor','user_token','PRIMARY','2023-03-31 13:48:09','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','user_token','PRIMARY','2023-03-31 13:48:09','size',1,NULL,'Number of pages in the index'),('vybor','vybori2019','PRIMARY','2023-03-31 13:48:23','n_diff_pfx01',3092,17,'id'),('vybor','vybori2019','PRIMARY','2023-03-31 13:48:23','n_leaf_pages',17,NULL,'Number of leaf pages in the index'),('vybor','vybori2019','PRIMARY','2023-03-31 13:48:23','size',18,NULL,'Number of pages in the index'),('vybor','vybori2019','number','2023-03-31 13:48:23','n_diff_pfx01',3092,3,'id'),('vybor','vybori2019','number','2023-03-31 13:48:23','n_leaf_pages',3,NULL,'Number of leaf pages in the index'),('vybor','vybori2019','number','2023-03-31 13:48:23','size',4,NULL,'Number of pages in the index'),('vybor','vybori2019i','PRIMARY','2023-03-31 13:48:33','n_diff_pfx01',3074,17,'id'),('vybor','vybori2019i','PRIMARY','2023-03-31 13:48:33','n_leaf_pages',17,NULL,'Number of leaf pages in the index'),('vybor','vybori2019i','PRIMARY','2023-03-31 13:48:33','size',18,NULL,'Number of pages in the index'),('vybor','vybori2019i','number','2023-03-31 13:48:33','n_diff_pfx01',3074,3,'id'),('vybor','vybori2019i','number','2023-03-31 13:48:33','n_leaf_pages',3,NULL,'Number of leaf pages in the index'),('vybor','vybori2019i','number','2023-03-31 13:48:33','size',4,NULL,'Number of pages in the index'),('vybor','widget_carousel','PRIMARY','2023-03-31 13:48:12','n_diff_pfx01',0,1,'id'),('vybor','widget_carousel','PRIMARY','2023-03-31 13:48:12','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','widget_carousel','PRIMARY','2023-03-31 13:48:12','size',1,NULL,'Number of pages in the index'),('vybor','widget_carousel_item','PRIMARY','2023-03-31 13:48:43','n_diff_pfx01',5,1,'id'),('vybor','widget_carousel_item','PRIMARY','2023-03-31 13:48:43','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','widget_carousel_item','PRIMARY','2023-03-31 13:48:43','size',1,NULL,'Number of pages in the index'),('vybor','widget_carousel_item','fk_item_carousel','2023-03-31 13:48:43','n_diff_pfx01',1,1,'carousel_id'),('vybor','widget_carousel_item','fk_item_carousel','2023-03-31 13:48:43','n_diff_pfx02',5,1,'carousel_id,id'),('vybor','widget_carousel_item','fk_item_carousel','2023-03-31 13:48:43','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','widget_carousel_item','fk_item_carousel','2023-03-31 13:48:43','size',1,NULL,'Number of pages in the index'),('vybor','widget_menu','PRIMARY','2023-03-31 13:48:13','n_diff_pfx01',0,1,'id'),('vybor','widget_menu','PRIMARY','2023-03-31 13:48:13','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','widget_menu','PRIMARY','2023-03-31 13:48:13','size',1,NULL,'Number of pages in the index'),('vybor','widget_text','PRIMARY','2023-03-31 13:48:54','n_diff_pfx01',2,1,'id'),('vybor','widget_text','PRIMARY','2023-03-31 13:48:54','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','widget_text','PRIMARY','2023-03-31 13:48:54','size',1,NULL,'Number of pages in the index'),('vybor','widget_text','idx_widget_text_key','2023-03-31 13:48:54','n_diff_pfx01',2,1,'key'),('vybor','widget_text','idx_widget_text_key','2023-03-31 13:48:54','n_diff_pfx02',2,1,'key,id'),('vybor','widget_text','idx_widget_text_key','2023-03-31 13:48:54','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','widget_text','idx_widget_text_key','2023-03-31 13:48:54','size',1,NULL,'Number of pages in the index');
+INSERT  IGNORE INTO `innodb_index_stats` VALUES ('mysql','component','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'component_id'),('mysql','component','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('mysql','component','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('nctables','covid19','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'id'),('nctables','covid19','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('nctables','covid19','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('nctables','nclogs','GEN_CLUST_INDEX','2024-02-19 14:27:32','n_diff_pfx01',0,1,'DB_ROW_ID'),('nctables','nclogs','GEN_CLUST_INDEX','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('nctables','nclogs','GEN_CLUST_INDEX','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('nctables','reforms_experts','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'id'),('nctables','reforms_experts','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('nctables','reforms_experts','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('nctables','reforms_infograph','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'id'),('nctables','reforms_infograph','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('nctables','reforms_infograph','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('nctables','signups_test','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'signups_id'),('nctables','signups_test','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('nctables','signups_test','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('nctables','signups_test_new','GEN_CLUST_INDEX','2024-02-19 14:27:32','n_diff_pfx01',0,1,'DB_ROW_ID'),('nctables','signups_test_new','GEN_CLUST_INDEX','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('nctables','signups_test_new','GEN_CLUST_INDEX','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('sys','sys_config','PRIMARY','2024-02-19 14:25:22','n_diff_pfx01',6,1,'variable'),('sys','sys_config','PRIMARY','2024-02-19 14:25:22','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('sys','sys_config','PRIMARY','2024-02-19 14:25:22','size',1,NULL,'Number of pages in the index'),('transcriber','users','GEN_CLUST_INDEX','2024-02-19 14:27:32','n_diff_pfx01',0,1,'DB_ROW_ID'),('transcriber','users','GEN_CLUST_INDEX','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('transcriber','users','GEN_CLUST_INDEX','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('transcriber','users_test','GEN_CLUST_INDEX','2024-02-19 14:27:32','n_diff_pfx01',0,1,'DB_ROW_ID'),('transcriber','users_test','GEN_CLUST_INDEX','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('transcriber','users_test','GEN_CLUST_INDEX','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','article','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'id'),('vybor','article','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','article','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','article','fk_article_author','2024-02-19 14:27:32','n_diff_pfx01',0,1,'created_by'),('vybor','article','fk_article_author','2024-02-19 14:27:32','n_diff_pfx02',0,1,'created_by,id'),('vybor','article','fk_article_author','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','article','fk_article_author','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','article','fk_article_category','2024-02-19 14:27:32','n_diff_pfx01',0,1,'category_id'),('vybor','article','fk_article_category','2024-02-19 14:27:32','n_diff_pfx02',0,1,'category_id,id'),('vybor','article','fk_article_category','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','article','fk_article_category','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','article','fk_article_updater','2024-02-19 14:27:32','n_diff_pfx01',0,1,'updated_by'),('vybor','article','fk_article_updater','2024-02-19 14:27:32','n_diff_pfx02',0,1,'updated_by,id'),('vybor','article','fk_article_updater','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','article','fk_article_updater','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','article_attachment','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'id'),('vybor','article_attachment','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','article_attachment','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','article_attachment','fk_article_attachment_article','2024-02-19 14:27:32','n_diff_pfx01',0,1,'article_id'),('vybor','article_attachment','fk_article_attachment_article','2024-02-19 14:27:32','n_diff_pfx02',0,1,'article_id,id'),('vybor','article_attachment','fk_article_attachment_article','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','article_attachment','fk_article_attachment_article','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','article_category','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'id'),('vybor','article_category','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','article_category','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','article_category','fk_article_category_section','2024-02-19 14:27:32','n_diff_pfx01',0,1,'parent_id'),('vybor','article_category','fk_article_category_section','2024-02-19 14:27:32','n_diff_pfx02',0,1,'parent_id,id'),('vybor','article_category','fk_article_category_section','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','article_category','fk_article_category_section','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','deputa','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'id_pk'),('vybor','deputa','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','deputa','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','file_storage_item','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'id'),('vybor','file_storage_item','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','file_storage_item','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','i18n_message','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'id'),('vybor','i18n_message','PRIMARY','2024-02-19 14:27:32','n_diff_pfx02',0,1,'id,language'),('vybor','i18n_message','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','i18n_message','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','i18n_source_message','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'id'),('vybor','i18n_source_message','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','i18n_source_message','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','key_storage_item','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'key'),('vybor','key_storage_item','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','key_storage_item','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','key_storage_item','idx_key_storage_item_key','2024-02-19 14:27:32','n_diff_pfx01',0,1,'key'),('vybor','key_storage_item','idx_key_storage_item_key','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','key_storage_item','idx_key_storage_item_key','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','page','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'id'),('vybor','page','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','page','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','rbac_auth_assignment','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'item_name'),('vybor','rbac_auth_assignment','PRIMARY','2024-02-19 14:27:32','n_diff_pfx02',0,1,'item_name,user_id'),('vybor','rbac_auth_assignment','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','rbac_auth_assignment','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','rbac_auth_item','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'name'),('vybor','rbac_auth_item','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','rbac_auth_item','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','rbac_auth_item','idx-auth_item-type','2024-02-19 14:27:32','n_diff_pfx01',0,1,'type'),('vybor','rbac_auth_item','idx-auth_item-type','2024-02-19 14:27:32','n_diff_pfx02',0,1,'type,name'),('vybor','rbac_auth_item','idx-auth_item-type','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','rbac_auth_item','idx-auth_item-type','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','rbac_auth_item','rule_name','2024-02-19 14:27:32','n_diff_pfx01',0,1,'rule_name'),('vybor','rbac_auth_item','rule_name','2024-02-19 14:27:32','n_diff_pfx02',0,1,'rule_name,name'),('vybor','rbac_auth_item','rule_name','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','rbac_auth_item','rule_name','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','rbac_auth_item_child','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'parent'),('vybor','rbac_auth_item_child','PRIMARY','2024-02-19 14:27:32','n_diff_pfx02',0,1,'parent,child'),('vybor','rbac_auth_item_child','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','rbac_auth_item_child','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','rbac_auth_item_child','child','2024-02-19 14:27:32','n_diff_pfx01',0,1,'child'),('vybor','rbac_auth_item_child','child','2024-02-19 14:27:32','n_diff_pfx02',0,1,'child,parent'),('vybor','rbac_auth_item_child','child','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','rbac_auth_item_child','child','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','rbac_auth_rule','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'name'),('vybor','rbac_auth_rule','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','rbac_auth_rule','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','system_db_migration','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'version'),('vybor','system_db_migration','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','system_db_migration','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','system_log','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'id'),('vybor','system_log','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','system_log','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','system_log','idx_log_category','2024-02-19 14:27:32','n_diff_pfx01',0,1,'category'),('vybor','system_log','idx_log_category','2024-02-19 14:27:32','n_diff_pfx02',0,1,'category,id'),('vybor','system_log','idx_log_category','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','system_log','idx_log_category','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','system_log','idx_log_level','2024-02-19 14:27:32','n_diff_pfx01',0,1,'level'),('vybor','system_log','idx_log_level','2024-02-19 14:27:32','n_diff_pfx02',0,1,'level,id'),('vybor','system_log','idx_log_level','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','system_log','idx_log_level','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','system_rbac_migration','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'version'),('vybor','system_rbac_migration','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','system_rbac_migration','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','tbl_poll','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'poll_id'),('vybor','tbl_poll','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','tbl_poll','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','timeline_event','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'id'),('vybor','timeline_event','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','timeline_event','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','timeline_event','idx_created_at','2024-02-19 14:27:32','n_diff_pfx01',0,1,'created_at'),('vybor','timeline_event','idx_created_at','2024-02-19 14:27:32','n_diff_pfx02',0,1,'created_at,id'),('vybor','timeline_event','idx_created_at','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','timeline_event','idx_created_at','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','user','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'id'),('vybor','user','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','user','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','user_profile','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'user_id'),('vybor','user_profile','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','user_profile','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','user_token','PRIMARY','2024-02-19 14:27:32','n_diff_pfx01',0,1,'id'),('vybor','user_token','PRIMARY','2024-02-19 14:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','user_token','PRIMARY','2024-02-19 14:27:32','size',1,NULL,'Number of pages in the index'),('vybor','vybori2019','PRIMARY','2024-02-19 14:27:33','n_diff_pfx01',0,1,'id'),('vybor','vybori2019','PRIMARY','2024-02-19 14:27:33','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','vybori2019','PRIMARY','2024-02-19 14:27:33','size',1,NULL,'Number of pages in the index'),('vybor','vybori2019','number','2024-02-19 14:27:33','n_diff_pfx01',0,1,'id'),('vybor','vybori2019','number','2024-02-19 14:27:33','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','vybori2019','number','2024-02-19 14:27:33','size',1,NULL,'Number of pages in the index'),('vybor','vybori2019i','PRIMARY','2024-02-19 14:27:33','n_diff_pfx01',0,1,'id'),('vybor','vybori2019i','PRIMARY','2024-02-19 14:27:33','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','vybori2019i','PRIMARY','2024-02-19 14:27:33','size',1,NULL,'Number of pages in the index'),('vybor','vybori2019i','number','2024-02-19 14:27:33','n_diff_pfx01',0,1,'id'),('vybor','vybori2019i','number','2024-02-19 14:27:33','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','vybori2019i','number','2024-02-19 14:27:33','size',1,NULL,'Number of pages in the index'),('vybor','widget_carousel','PRIMARY','2024-02-19 14:27:33','n_diff_pfx01',0,1,'id'),('vybor','widget_carousel','PRIMARY','2024-02-19 14:27:33','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','widget_carousel','PRIMARY','2024-02-19 14:27:33','size',1,NULL,'Number of pages in the index'),('vybor','widget_carousel_item','PRIMARY','2024-02-19 14:27:33','n_diff_pfx01',0,1,'id'),('vybor','widget_carousel_item','PRIMARY','2024-02-19 14:27:33','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','widget_carousel_item','PRIMARY','2024-02-19 14:27:33','size',1,NULL,'Number of pages in the index'),('vybor','widget_carousel_item','fk_item_carousel','2024-02-19 14:27:33','n_diff_pfx01',0,1,'carousel_id'),('vybor','widget_carousel_item','fk_item_carousel','2024-02-19 14:27:33','n_diff_pfx02',0,1,'carousel_id,id'),('vybor','widget_carousel_item','fk_item_carousel','2024-02-19 14:27:33','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','widget_carousel_item','fk_item_carousel','2024-02-19 14:27:33','size',1,NULL,'Number of pages in the index'),('vybor','widget_menu','PRIMARY','2024-02-19 14:27:33','n_diff_pfx01',0,1,'id'),('vybor','widget_menu','PRIMARY','2024-02-19 14:27:33','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','widget_menu','PRIMARY','2024-02-19 14:27:33','size',1,NULL,'Number of pages in the index'),('vybor','widget_text','PRIMARY','2024-02-19 14:27:33','n_diff_pfx01',0,1,'id'),('vybor','widget_text','PRIMARY','2024-02-19 14:27:33','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','widget_text','PRIMARY','2024-02-19 14:27:33','size',1,NULL,'Number of pages in the index'),('vybor','widget_text','idx_widget_text_key','2024-02-19 14:27:33','n_diff_pfx01',0,1,'key'),('vybor','widget_text','idx_widget_text_key','2024-02-19 14:27:33','n_diff_pfx02',0,1,'key,id'),('vybor','widget_text','idx_widget_text_key','2024-02-19 14:27:33','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('vybor','widget_text','idx_widget_text_key','2024-02-19 14:27:33','size',1,NULL,'Number of pages in the index');
 /*!40000 ALTER TABLE `innodb_index_stats` ENABLE KEYS */;
 
 --
@@ -360,7 +360,7 @@ INSERT  IGNORE INTO `innodb_index_stats` VALUES ('mysql','component','PRIMARY','
 --
 
 /*!40000 ALTER TABLE `innodb_table_stats` DISABLE KEYS */;
-INSERT  IGNORE INTO `innodb_table_stats` VALUES ('mysql','component','2023-12-24 12:09:46',0,1,0),('nctables','covid19','2022-12-12 20:17:39',0,1,0),('nctables','nclogs','2023-08-03 11:58:55',12,1,0),('nctables','reforms_experts','2022-12-12 20:17:40',17,1,0),('nctables','reforms_infograph','2022-12-12 20:17:41',10,1,0),('nctables','signups_test','2022-12-12 20:17:51',15,1,0),('nctables','signups_test_new','2023-08-03 11:58:56',17,1,0),('sys','sys_config','2022-12-12 19:58:02',6,1,0),('transcriber','users','2023-12-20 15:20:50',98,1,0),('transcriber','users_test','2023-08-03 11:58:57',37,1,0),('vybor','article','2023-03-31 13:48:08',48,97,3),('vybor','article_attachment','2023-03-31 13:47:58',0,1,1),('vybor','article_category','2023-03-31 13:48:00',8,1,1),('vybor','deputa','2023-03-31 13:47:59',0,1,0),('vybor','file_storage_item','2023-03-31 13:48:03',116,3,0),('vybor','i18n_message','2023-03-31 13:48:00',0,1,0),('vybor','i18n_source_message','2023-03-31 13:48:00',0,1,0),('vybor','key_storage_item','2023-03-31 13:48:03',5,1,1),('vybor','page','2023-03-31 13:48:01',0,1,0),('vybor','rbac_auth_assignment','2023-03-31 13:48:02',0,1,0),('vybor','rbac_auth_item','2023-03-31 13:48:05',5,1,2),('vybor','rbac_auth_item_child','2023-03-31 13:48:07',4,1,1),('vybor','rbac_auth_rule','2023-03-31 13:48:04',0,1,0),('vybor','system_db_migration','2023-03-31 13:48:07',16,1,0),('vybor','system_log','2023-03-31 13:48:10',235,97,2),('vybor','system_rbac_migration','2023-03-31 13:48:11',4,1,0),('vybor','tbl_poll','2023-03-31 13:48:12',120,1,0),('vybor','timeline_event','2023-03-31 13:48:13',5,1,1),('vybor','user','2023-03-31 13:48:08',0,1,0),('vybor','user_profile','2023-03-31 13:48:09',0,1,0),('vybor','user_token','2023-03-31 13:48:09',0,1,0),('vybor','vybori2019','2023-03-31 13:48:23',3092,18,4),('vybor','vybori2019i','2023-03-31 13:48:33',3074,18,4),('vybor','widget_carousel','2023-03-31 13:48:12',0,1,0),('vybor','widget_carousel_item','2023-03-31 13:48:43',5,1,1),('vybor','widget_menu','2023-03-31 13:48:13',0,1,0),('vybor','widget_text','2023-03-31 13:48:54',2,1,1);
+INSERT  IGNORE INTO `innodb_table_stats` VALUES ('mysql','component','2024-02-19 14:27:32',0,1,0),('nctables','covid19','2024-02-19 14:27:32',0,1,0),('nctables','nclogs','2024-02-19 14:27:32',0,1,0),('nctables','reforms_experts','2024-02-19 14:27:32',0,1,0),('nctables','reforms_infograph','2024-02-19 14:27:32',0,1,0),('nctables','signups_test','2024-02-19 14:27:32',0,1,0),('nctables','signups_test_new','2024-02-19 14:27:32',0,1,0),('sys','sys_config','2024-02-19 14:25:22',6,1,0),('transcriber','users','2024-02-19 14:27:32',0,1,0),('transcriber','users_test','2024-02-19 14:27:32',0,1,0),('vybor','article','2024-02-19 14:27:32',0,1,3),('vybor','article_attachment','2024-02-19 14:27:32',0,1,1),('vybor','article_category','2024-02-19 14:27:32',0,1,1),('vybor','deputa','2024-02-19 14:27:32',0,1,0),('vybor','file_storage_item','2024-02-19 14:27:32',0,1,0),('vybor','i18n_message','2024-02-19 14:27:32',0,1,0),('vybor','i18n_source_message','2024-02-19 14:27:32',0,1,0),('vybor','key_storage_item','2024-02-19 14:27:32',0,1,1),('vybor','page','2024-02-19 14:27:32',0,1,0),('vybor','rbac_auth_assignment','2024-02-19 14:27:32',0,1,0),('vybor','rbac_auth_item','2024-02-19 14:27:32',0,1,2),('vybor','rbac_auth_item_child','2024-02-19 14:27:32',0,1,1),('vybor','rbac_auth_rule','2024-02-19 14:27:32',0,1,0),('vybor','system_db_migration','2024-02-19 14:27:32',0,1,0),('vybor','system_log','2024-02-19 14:27:32',0,1,2),('vybor','system_rbac_migration','2024-02-19 14:27:32',0,1,0),('vybor','tbl_poll','2024-02-19 14:27:32',0,1,0),('vybor','timeline_event','2024-02-19 14:27:32',0,1,1),('vybor','user','2024-02-19 14:27:32',0,1,0),('vybor','user_profile','2024-02-19 14:27:32',0,1,0),('vybor','user_token','2024-02-19 14:27:32',0,1,0),('vybor','vybori2019','2024-02-19 14:27:33',0,1,1),('vybor','vybori2019i','2024-02-19 14:27:33',0,1,1),('vybor','widget_carousel','2024-02-19 14:27:33',0,1,0),('vybor','widget_carousel_item','2024-02-19 14:27:33',0,1,1),('vybor','widget_menu','2024-02-19 14:27:33',0,1,0),('vybor','widget_text','2024-02-19 14:27:33',0,1,1);
 /*!40000 ALTER TABLE `innodb_table_stats` ENABLE KEYS */;
 
 --
@@ -405,9 +405,9 @@ DROP TABLE IF EXISTS `password_history`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `password_history` (
   `Host` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
-  `User` char(32) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `User` char(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
   `Password_timestamp` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `Password` text COLLATE utf8mb3_bin,
+  `Password` text CHARACTER SET utf8mb3 COLLATE utf8mb3_bin,
   PRIMARY KEY (`Host`,`User`,`Password_timestamp` DESC)
 ) /*!50100 TABLESPACE `mysql` */ ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin STATS_PERSISTENT=0 ROW_FORMAT=DYNAMIC COMMENT='Password history for user accounts';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -454,11 +454,11 @@ DROP TABLE IF EXISTS `procs_priv`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `procs_priv` (
   `Host` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
-  `Db` char(64) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
-  `User` char(32) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `Db` char(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `User` char(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
   `Routine_name` char(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '',
-  `Routine_type` enum('FUNCTION','PROCEDURE') COLLATE utf8mb3_bin NOT NULL,
-  `Grantor` varchar(288) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `Routine_type` enum('FUNCTION','PROCEDURE') CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
+  `Grantor` varchar(288) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
   `Proc_priv` set('Execute','Alter Routine','Grant') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '',
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`Host`,`User`,`Db`,`Routine_name`,`Routine_type`),
@@ -484,11 +484,11 @@ DROP TABLE IF EXISTS `proxies_priv`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `proxies_priv` (
   `Host` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
-  `User` char(32) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `User` char(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
   `Proxied_host` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
-  `Proxied_user` char(32) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `Proxied_user` char(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
   `With_grant` tinyint(1) NOT NULL DEFAULT '0',
-  `Grantor` varchar(288) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `Grantor` varchar(288) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`Host`,`User`,`Proxied_host`,`Proxied_user`),
   KEY `Grantor` (`Grantor`)
@@ -620,9 +620,9 @@ DROP TABLE IF EXISTS `role_edges`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `role_edges` (
   `FROM_HOST` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
-  `FROM_USER` char(32) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `FROM_USER` char(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
   `TO_HOST` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
-  `TO_USER` char(32) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `TO_USER` char(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
   `WITH_ADMIN_OPTION` enum('N','Y') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT 'N',
   PRIMARY KEY (`FROM_HOST`,`FROM_USER`,`TO_HOST`,`TO_USER`)
 ) /*!50100 TABLESPACE `mysql` */ ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin STATS_PERSISTENT=0 ROW_FORMAT=DYNAMIC COMMENT='Role hierarchy and role grants';
@@ -807,10 +807,10 @@ DROP TABLE IF EXISTS `tables_priv`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tables_priv` (
   `Host` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
-  `Db` char(64) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
-  `User` char(32) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
-  `Table_name` char(64) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
-  `Grantor` varchar(288) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `Db` char(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `User` char(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `Table_name` char(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `Grantor` varchar(288) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `Table_priv` set('Select','Insert','Update','Delete','Create','Drop','Grant','References','Index','Alter','Create View','Show view','Trigger') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '',
   `Column_priv` set('Select','Insert','Update','References') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '',
@@ -957,7 +957,7 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `Host` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
-  `User` char(32) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+  `User` char(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',
   `Select_priv` enum('N','Y') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT 'N',
   `Insert_priv` enum('N','Y') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT 'N',
   `Update_priv` enum('N','Y') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT 'N',
@@ -995,8 +995,8 @@ CREATE TABLE `user` (
   `max_updates` int unsigned NOT NULL DEFAULT '0',
   `max_connections` int unsigned NOT NULL DEFAULT '0',
   `max_user_connections` int unsigned NOT NULL DEFAULT '0',
-  `plugin` char(64) COLLATE utf8mb3_bin NOT NULL DEFAULT 'caching_sha2_password',
-  `authentication_string` text COLLATE utf8mb3_bin,
+  `plugin` char(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT 'caching_sha2_password',
+  `authentication_string` text CHARACTER SET utf8mb3 COLLATE utf8mb3_bin,
   `password_expired` enum('N','Y') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT 'N',
   `password_last_changed` timestamp NULL DEFAULT NULL,
   `password_lifetime` smallint unsigned DEFAULT NULL,
@@ -1084,12 +1084,12 @@ DROP TABLE IF EXISTS `covid19`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `covid19` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `ukraine` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ukraineh` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ukrained` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `odessa` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nikolaev` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `kherson` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ukraine` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ukraineh` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ukrained` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `odessa` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nikolaev` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kherson` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1112,12 +1112,12 @@ DROP TABLE IF EXISTS `nclogs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `nclogs` (
-  `IP` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `DATE` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `HOSTNAME` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `IP` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `DATE` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `HOSTNAME` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `PORT` int NOT NULL,
-  `USERAGENT` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `HTTPREFERER` text COLLATE utf8mb4_unicode_ci NOT NULL
+  `USERAGENT` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `HTTPREFERER` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1172,9 +1172,9 @@ DROP TABLE IF EXISTS `reforms_infograph`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reforms_infograph` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1223,7 +1223,7 @@ DROP TABLE IF EXISTS `signups_test`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `signups_test` (
   `signups_id` int NOT NULL,
-  `signup_email_address` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `signup_email_address` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`signups_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1246,7 +1246,7 @@ DROP TABLE IF EXISTS `signups_test_new`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `signups_test_new` (
-  `signup_email_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `signup_email_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1277,15 +1277,15 @@ DROP TABLE IF EXISTS `users`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
   `userID` bigint DEFAULT NULL,
-  `Firstname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `Username` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `Name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `Telephone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Firstname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Telephone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Sum` int DEFAULT NULL,
   `Allowed` int DEFAULT NULL,
   `Spent` int DEFAULT NULL,
   `Available` int DEFAULT NULL,
-  `Date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Date` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Level` int DEFAULT NULL,
   `FormattedDate` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1297,7 +1297,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (846398657,NULL,NULL,'Демян Гавриляк','380678557197',1000,877,140,737,'06.04.2023 0:00:00',2,'2023-04-06'),(408969083,NULL,'@s_shemeta','Шемета Світлана','380931695973',1000,877,404,473,'06.04.2023 0:00:00',2,'2023-04-06'),(475359270,NULL,NULL,'Віталій Олійник ','507194881',500,439,384,55,'12.04.2023 0:00:00',2,'2023-04-12'),(425334337,NULL,NULL,'Марія Булейко','939215457',500,663,435,228,'18.04.2023 0:00:00',2,'2023-04-18'),(496158341,NULL,'@bogdanbass','Богдан Басій','380979338985',500,461,163,298,'27.04.2023 0:00:00',2,'2023-04-27'),(443625037,NULL,'@koffalenko','Анастасія Коваленко','380991904071',1500,113,92,21,'28.04.2023 0:00:00',1,'2023-04-28'),(520822419,NULL,'@Daryna_Zarzhytska','Daryna Zarzhytska','970576025',600,553,506,47,'30.04.2023 0:00:00',1,'2023-04-30'),(643721358,NULL,'@yuliyadatsyuk','Yuliya Datsiuk','380667438139',500,461,343,118,'02.05.2023 0:00:00',2,'2023-05-02'),(220431991,NULL,' @alexanndrinn','Oleksandra Yushchyshena','502563735',700,645,143,502,'05.05.2023 0:00:00',2,'2023-05-05'),(212471899,NULL,NULL,'Ольга Булковська','380955029987',1100,2158,248,1910,'06.05.2023 0:00:00',2,'2023-05-06'),(427694525,NULL,'Olha Kostiv','Ольга Костів','959408554',300,263,201,62,'06.05.2023 0:00:00',1,'2023-05-06'),(440978350,NULL,'Larysakor','Larysa Horyslavets',NULL,300,263,117,146,'08.05.2023 0:00:00',1,'2023-05-08'),(841811743,NULL,'Evgenija','Євгенія Козловська','380932797524',150,105,18,87,'09.05.2023 0:00:00',1,'2023-05-09'),(97019477,NULL,'juliahimera','Юлія Химерик','380637056256',960,1460,780,680,'16.05.2023 0:00:00',2,'2023-05-16'),(294628104,NULL,'@in_ky','Ірина Іванова ','508359545',1750,2440,2210,230,'16.05.2023 0:00:00',2,'2023-05-16'),(235116713,NULL,'@yeliena_shchepak','Єлєна Щепак','380963313353',500,457,184,273,'22.05.2023 0:00:00',2,'2023-05-22'),(355254584,NULL,'@kryanna1','Nastia Kryshtofor','989506596',500,461,366,95,'23.05.2023 0:00:00',2,'2023-05-23'),(300286815,NULL,'@daria_khrystyniuk','Daria Khrystyniuk','380504338525',1100,1553,670,883,'28.05.2023 0:00:00',2,'2023-05-28'),(92765425,NULL,'kanareva_kanareva','Anastasia Kanareva','380954594717',200,158,35,123,'04.06.2023 0:00:00',1,'2023-06-04'),(448066543,NULL,'nastia_zubova','Зубова Анастасія ','380997093223',200,861,481,380,'15.06.2023 0:00:00',2,'2023-06-15'),(376670268,NULL,'@dolorsitamet','Dina Zhemchuzhnikova','380689387565',250,197,61,136,'24.06.2023 0:00:00',1,'2023-06-24'),(397373210,NULL,'@Natalka_Ukr','Наталя Балюк','380957589400',1400,2921,1049,1872,'03.07.2023 0:00:00',2,'2023-07-03'),(311837178,NULL,'@lerkasem','Valeriya Semenets','380636366938',500,504,253,251,'04.07.2023 0:00:00',2,'2023-07-04'),(582378663,NULL,'Julia','Юлія Байрачна','971573525',500,472,447,25,'09.06.2023 0:00:00',1,'2023-06-09'),(351196828,NULL,'svrublevskyi','Stanislav Vrublevskti','380983200672',505,465,423,42,'25.07.2023 0:00:00',1,'2023-07-25'),(499096793,NULL,'evgeniiagenova','Євгенія Генова','967677327',1000,1303,720,583,'25.07.2023 0:00:00',2,'2023-07-25'),(455381221,NULL,'@inhapavlii','Інга Павлій','380970062127',2750,4869,4827,42,'26.07.2023 0:00:00',2,'2023-07-26'),(702936281,NULL,'OlhaStukalo','Ольга Стукало (Харченко)','380977649221',900,806,714,92,'19.04.2023 0:00:00',2,'2023-04-19'),(600136774,NULL,'annalasiy','Lasiy Anna','995542469',500,461,423,38,'04.05.2023 0:00:00',1,'2023-05-04'),(827479084,NULL,'tania_tokarchuk','Тетяна Токарчук','380970786996',500,461,402,59,'09.05.2023 0:00:00',1,'2023-05-09'),(140141325,NULL,NULL,'Лариса Шустенко','380506413923',500,461,384,77,'02.06.2023 0:00:00',1,'2023-06-02'),(744938105,NULL,'@nkhodko','Наталія Ходько','380971245026',1920,3086,2884,202,'06.06.2023 0:00:00',2,'2023-06-06'),(1461403272,NULL,NULL,'Татьяна Маринова','380676902994',500,461,417,44,'15.06.2023 0:00:00',1,'2023-06-15'),(959676595,'Oleg','d09ed0bbd0b5d0b3',NULL,'993333066',1000,1050,140,910,'06.04.2023 0:00:00',2,'2023-04-06'),(765494993,'Oksana','None',NULL,'380981729642',700,860,769,91,'06.04.2023 0:00:00',2,'2023-04-06'),(650797454,'Alyona','alona_ptk',NULL,NULL,500,460,130,330,'07.04.2023 0:00:00',2,'2023-04-07'),(521797754,'Alesia','None',NULL,NULL,1000,1460,901,559,'08.04.2023 0:00:00',2,'2023-04-08'),(502883660,'Eduard','Berglion','Eduard Berdnik','380987648530',59,100,138,-38,'2023-07-28',0,'2023-07-28'),(150774144,'Михаил','mishajedi','Mykhail Shtekel','380639946350',109,200,98,102,'2023-08-02',1,'2023-08-02'),(405258216,'Kostyantin','kostiantynkostianyi','Konstantin Kostyanoy','0930643841',850,2000,1225,775,'2023-08-03',2,'2023-08-03'),(374963317,'tasty_drive','Julia','','',459,950,375,575,'2023-08-05',2,'2023-08-05'),(100006402,'Євген «Smelly»','Al_spirini','','0',59,100,31,69,'2023-07-28',1,'2023-08-10'),(93078468,'Adastra777','ОО','380501525455','',109,200,0,200,'2023-08-10',1,'2023-08-10'),(508637299,'Діна','purpp_purple','Діна Сацюк','380635326682',250,500,291,209,'2023-08-12',2,'2023-08-12'),(1217785128,'Iryna','ira_n74','','380505741551',710,1500,850,650,'2023-08-16',2,'2023-08-16'),(269463658,'Olga','olkendzior','','380974656464',200,400,169,231,'2023-08-16',2,'2023-08-16'),(300420405,'Olena','Olena_Pareniuk','','',500,1000,428,572,'2023-08-18',2,'2023-08-18'),(263623392,'Julia','','Julia Maleeva','+380666256683',59,100,77,23,'2023-08-18',1,'2023-08-22'),(406114623,'Alya','aljaua','Alyona Bereza','',900,2000,743,1257,'2023-08-24',2,'2023-08-24'),(214795171,'Valentyna_Sotnykova','Valentyna','Valentyna_Sotnykova','0633783980',250,500,130,370,'2023-02-09',2,'2023-09-02'),(656891068,'Mary','','','',60,100,58,42,'2023-09-06',1,'2023-09-06'),(293329552,'Oleg','symonik','Oleg','',50,80,1,79,'2023-09-08',1,'2023-09-08'),(694431059,'Alehandra','AlexSandra_26','Alehandra Karas','',59,100,117,-17,'2023-09-11',0,'2023-09-11'),(391023380,'Oksana','Oksana Romanyshyn','','',200,400,351,49,'2023-09-14',2,'2023-09-14'),(744002139,'Maryna','','Марина','',100,180,72,108,'2023-09-15',1,'2023-09-15'),(592673338,'Marina','marill11','Марина','',60,100,82,18,'2023-09-16',1,'2023-09-16'),(5464277510,'Natalia','Nataliia','','',380,700,471,229,'2023-09-16',2,'2023-09-26'),(385701057,'Liz’ok','llizosomka','','',100,180,136,44,'2023-09-26',1,'2023-09-26'),(1007823410,'Олександра','alexozogina','','',600,1200,597,603,'2023-09-27',2,'2023-09-28'),(1685505665,'Юлия','','Юлия Джамгурова','',200,400,46,354,'2023-10-02',2,'2023-10-02'),(385035806,'slava.forriss','forriss','Фітнес-тренер','',200,400,347,53,'2023-10-05',2,'2023-10-05'),(766771861,'Marta Baydaka','','','',100,185,0,185,'2023-10-05',1,'2023-10-05'),(1338496413,'Ol','','Shalayskiy','',200,400,49,351,'2023-10-10',2,'2023-10-09'),(643213043,'Viktoriia','','','',250,500,446,54,'2023-10-11',2,'2023-10-11'),(408531275,'darinka','dar_in_a','','',200,400,0,400,'2023-10-18',2,'2023-10-18'),(769883672,'Olechka','olechka_puganova','','',259,500,489,11,'2023-10-20',1,'2023-10-20'),(343898454,'Dasha','daryaburkovska','','',59,100,0,100,'2023-10-20',1,'2023-10-20'),(338944645,'Аня Кравченко','ann_kravchenko','','',200,400,224,176,'2023-10-21',2,'2023-10-21'),(592673895,'Вікторія','','','',199,400,3,397,'2023-10-22',2,'2023-10-22'),(565797773,'Olena','','','',59,100,0,100,'2023-10-22',1,'2023-10-22'),(474159586,'Oleksandr','','','',65,100,0,100,'2023-10-26',1,'2023-10-26'),(1266685299,'Анастасия','','','',109,200,71,129,'2023-10-26',1,'2023-10-26'),(949507258,'Оля','Lellya2020','','',200,400,4,396,'2023-10-26',2,'2023-10-26'),(788807606,'Максим','maxymbernyk','','',409,800,448,352,'2023-10-31',2,'2023-10-31'),(586665998,'Lesia','Boiko_lesia','','',109,200,30,170,'2023-10-31',1,'2023-10-31'),(1899750332,'Сметанко','natasmetanko77','','',300,590,581,9,'2023-11-07',0,'2023-11-07'),(494990543,'Катерина','KaterynaRozghonyk','','',59,100,12,88,'2023-11-10',1,'2023-11-10'),(415109033,'Даринка','dar_es_salam','','',104,200,62,138,'2023-11-12',1,'2023-11-13'),(970412268,'Yuliya','','','',1304,2600,2341,259,'2023-11-13',2,'2023-11-13'),(572547368,'Марія','mhvost','','',100,190,0,190,'2023-11-13',1,'2023-11-13'),(945996489,'Olga','olgamaksymiuk','','',250,500,83,417,'2023-11-14',2,'2023-11-14'),(391260384,'Liudmyla','Liudmylagoi','','',460,1000,978,22,'2023-11-15',1,'2023-11-15'),(183610017,'Maya','maiagolub','','',200,400,2,398,'2023-11-17',2,'2023-11-17'),(488180399,'Svitlana','SKoropalova','','',60,100,0,0,'2023-11-17',1,'2023-11-17'),(255261631,'Alina','aafterspace','','',59,100,20,80,'2023-11-19',1,'2023-11-19'),(328033138,'Lilia','lilakorop','','',113,200,0,0,'2023-11-20',1,'2023-11-20'),(1382867937,'ооооо0о0о','hiastrn','','',59,100,2,98,'2023-11-23',1,'2023-11-23'),(501875555,'Oleksa','o_shkatov','','',109,200,111,89,'2023-11-28',1,'2023-11-28'),(689418756,'Оля Ракитянська','o_rakytianska','','',109,200,0,200,'2023-11-28',1,'2023-11-29'),(267358762,'Sasha','','','',59,100,40,60,'2023-11-30',1,'2023-11-30'),(643895380,'Наталія','natali_spatar','','',418,800,86,714,'2023-12-2',2,'2023-12-02'),(971910889,'Тетяна','Tatka_Kharlan','','',59,100,31,69,'2023-12-7',1,'2023-12-07'),(5376120073,'Yuliia','','','',59,100,26,74,'2023-12-11',1,'2023-12-11'),(208152908,'Олена','olenamartynenko','','',100,190,0,190,'2023-12-15',1,'2023-12-15'),(360402933,'Lisa','lisa_korneichuk','','',109,200,77,123,'2023-12-17',1,'2023-12-17'),(545055553,'Юлія','boichenko13','','',109,200,0,200,'2023-12-20',1,'2023-12-20'),(56424866,'Kateryna','sereda_ka','','',200,400,370,30,'2023-12-20',2,'2023-12-20'),(1027517,'Sergii','Nabok','','',100,190,0,190,'2023-12-20',1,'2023-12-20'),(1000651580,'','','Ольга Боглевська','',59,100,0,100,'2024-1-5',1,'2024-01-05'),(467157144,'Валерія','','','',59,100,0,100,'2024-1-7',1,'2024-01-07'),(256289713,'Bohdan','proskurov_b','','',59,100,17,83,'2024-1-16',1,'2024-01-16'),(1359827406,'Drey','drey_mie','','',59,100,0,100,'2024-1-17',1,'2024-01-17'),(875306688,'Sergei','','','',59,100,43,57,'2024-1-17',1,'2024-01-17'),(1067930963,'Ник','','','',59,100,32,68,'2024-1-17',1,'2024-01-17'),(239423755,'Olenka','Olenka_taka_Olenka','','',200,400,178,222,'2024-1-30',2,'2024-01-30'),(292705914,'Anя','','','',100,190,40,150,'2024-1-30',1,'2024-01-30'),(288040780,'Юля','juliia_bm','','',60,100,41,59,'2024-1-31',1,'2024-01-31'),(190766696,'mariia','lvusha','','',200,400,35,365,'2024-2-7',2,'2024-02-07'),(549227798,'Валентина','slipv','','',200,400,0,200,'2024-2-12',2,'2024-02-12'),(1444004066,'Katirinka','katirinka11','','',59,100,99,1,'2024-2-15',0,'2024-02-15');
+INSERT INTO `users` VALUES (846398657,NULL,NULL,'Демян Гавриляк','380678557197',1000,877,140,737,'06.04.2023 0:00:00',2,'2023-04-06'),(408969083,NULL,'@s_shemeta','Шемета Світлана','380931695973',1000,877,404,473,'06.04.2023 0:00:00',2,'2023-04-06'),(475359270,NULL,NULL,'Віталій Олійник ','507194881',500,439,384,55,'12.04.2023 0:00:00',2,'2023-04-12'),(425334337,NULL,NULL,'Марія Булейко','939215457',500,663,435,228,'18.04.2023 0:00:00',2,'2023-04-18'),(496158341,NULL,'@bogdanbass','Богдан Басій','380979338985',500,461,163,298,'27.04.2023 0:00:00',2,'2023-04-27'),(443625037,NULL,'@koffalenko','Анастасія Коваленко','380991904071',1500,113,92,21,'28.04.2023 0:00:00',1,'2023-04-28'),(520822419,NULL,'@Daryna_Zarzhytska','Daryna Zarzhytska','970576025',600,553,506,47,'30.04.2023 0:00:00',1,'2023-04-30'),(643721358,NULL,'@yuliyadatsyuk','Yuliya Datsiuk','380667438139',500,461,343,118,'02.05.2023 0:00:00',2,'2023-05-02'),(220431991,NULL,' @alexanndrinn','Oleksandra Yushchyshena','502563735',700,645,143,502,'05.05.2023 0:00:00',2,'2023-05-05'),(212471899,NULL,NULL,'Ольга Булковська','380955029987',1100,2158,266,1892,'06.05.2023 0:00:00',2,'2023-05-06'),(427694525,NULL,'Olha Kostiv','Ольга Костів','959408554',300,263,201,62,'06.05.2023 0:00:00',1,'2023-05-06'),(440978350,NULL,'Larysakor','Larysa Horyslavets',NULL,300,263,117,146,'08.05.2023 0:00:00',1,'2023-05-08'),(841811743,NULL,'Evgenija','Євгенія Козловська','380932797524',150,105,18,87,'09.05.2023 0:00:00',1,'2023-05-09'),(97019477,NULL,'juliahimera','Юлія Химерик','380637056256',960,1460,780,680,'16.05.2023 0:00:00',2,'2023-05-16'),(294628104,NULL,'@in_ky','Ірина Іванова ','508359545',1750,2440,2210,230,'16.05.2023 0:00:00',2,'2023-05-16'),(235116713,NULL,'@yeliena_shchepak','Єлєна Щепак','380963313353',500,457,184,273,'22.05.2023 0:00:00',2,'2023-05-22'),(355254584,NULL,'@kryanna1','Nastia Kryshtofor','989506596',500,461,366,95,'23.05.2023 0:00:00',2,'2023-05-23'),(300286815,NULL,'@daria_khrystyniuk','Daria Khrystyniuk','380504338525',1100,1553,670,883,'28.05.2023 0:00:00',2,'2023-05-28'),(92765425,NULL,'kanareva_kanareva','Anastasia Kanareva','380954594717',200,158,35,123,'04.06.2023 0:00:00',1,'2023-06-04'),(448066543,NULL,'nastia_zubova','Зубова Анастасія ','380997093223',200,861,481,380,'15.06.2023 0:00:00',2,'2023-06-15'),(376670268,NULL,'@dolorsitamet','Dina Zhemchuzhnikova','380689387565',250,197,61,136,'24.06.2023 0:00:00',1,'2023-06-24'),(397373210,NULL,'@Natalka_Ukr','Наталя Балюк','380957589400',1400,2921,1049,1872,'03.07.2023 0:00:00',2,'2023-07-03'),(311837178,NULL,'@lerkasem','Valeriya Semenets','380636366938',500,504,253,251,'04.07.2023 0:00:00',2,'2023-07-04'),(582378663,NULL,'Julia','Юлія Байрачна','971573525',500,472,447,25,'09.06.2023 0:00:00',1,'2023-06-09'),(351196828,NULL,'svrublevskyi','Stanislav Vrublevskti','380983200672',505,465,423,42,'25.07.2023 0:00:00',1,'2023-07-25'),(499096793,NULL,'evgeniiagenova','Євгенія Генова','967677327',1000,1303,720,583,'25.07.2023 0:00:00',2,'2023-07-25'),(455381221,NULL,'@inhapavlii','Інга Павлій','380970062127',2750,4869,4866,3,'26.07.2023 0:00:00',0,'2023-07-26'),(702936281,NULL,'OlhaStukalo','Ольга Стукало (Харченко)','380977649221',900,806,714,92,'19.04.2023 0:00:00',2,'2023-04-19'),(600136774,NULL,'annalasiy','Lasiy Anna','995542469',500,461,423,38,'04.05.2023 0:00:00',1,'2023-05-04'),(827479084,NULL,'tania_tokarchuk','Тетяна Токарчук','380970786996',500,461,402,59,'09.05.2023 0:00:00',1,'2023-05-09'),(140141325,NULL,NULL,'Лариса Шустенко','380506413923',500,461,384,77,'02.06.2023 0:00:00',1,'2023-06-02'),(744938105,NULL,'@nkhodko','Наталія Ходько','380971245026',1920,3086,2884,202,'06.06.2023 0:00:00',2,'2023-06-06'),(1461403272,NULL,NULL,'Татьяна Маринова','380676902994',500,461,417,44,'15.06.2023 0:00:00',1,'2023-06-15'),(959676595,'Oleg','d09ed0bbd0b5d0b3',NULL,'993333066',1000,1050,148,902,'06.04.2023 0:00:00',2,'2023-04-06'),(765494993,'Oksana','None',NULL,'380981729642',700,860,769,91,'06.04.2023 0:00:00',2,'2023-04-06'),(650797454,'Alyona','alona_ptk',NULL,NULL,500,460,130,330,'07.04.2023 0:00:00',2,'2023-04-07'),(521797754,'Alesia','None',NULL,NULL,1000,1460,901,559,'08.04.2023 0:00:00',2,'2023-04-08'),(502883660,'Eduard','Berglion','Eduard Berdnik','380987648530',59,100,138,-38,'2023-07-28',0,'2023-07-28'),(150774144,'Михаил','mishajedi','Mykhail Shtekel','380639946350',109,200,98,102,'2023-08-02',1,'2023-08-02'),(405258216,'Kostyantin','kostiantynkostianyi','Konstantin Kostyanoy','0930643841',850,2000,1225,775,'2023-08-03',2,'2023-08-03'),(374963317,'tasty_drive','Julia','','',459,950,375,575,'2023-08-05',2,'2023-08-05'),(100006402,'Євген «Smelly»','Al_spirini','','0',59,100,31,69,'2023-07-28',1,'2023-08-10'),(93078468,'Adastra777','ОО','380501525455','',109,200,0,200,'2023-08-10',1,'2023-08-10'),(508637299,'Діна','purpp_purple','Діна Сацюк','380635326682',250,500,291,209,'2023-08-12',2,'2023-08-12'),(1217785128,'Iryna','ira_n74','','380505741551',710,1500,850,650,'2023-08-16',2,'2023-08-16'),(269463658,'Olga','olkendzior','','380974656464',200,400,169,231,'2023-08-16',2,'2023-08-16'),(300420405,'Olena','Olena_Pareniuk','','',500,1000,428,572,'2023-08-18',2,'2023-08-18'),(263623392,'Julia','','Julia Maleeva','+380666256683',59,100,77,23,'2023-08-18',1,'2023-08-22'),(406114623,'Alya','aljaua','Alyona Bereza','',900,2000,743,1257,'2023-08-24',2,'2023-08-24'),(214795171,'Valentyna_Sotnykova','Valentyna','Valentyna_Sotnykova','0633783980',250,500,130,370,'2023-02-09',2,'2023-09-02'),(656891068,'Mary','','','',60,100,58,42,'2023-09-06',1,'2023-09-06'),(293329552,'Oleg','symonik','Oleg','',50,80,1,79,'2023-09-08',1,'2023-09-08'),(694431059,'Alehandra','AlexSandra_26','Alehandra Karas','',59,100,117,-17,'2023-09-11',0,'2023-09-11'),(391023380,'Oksana','Oksana Romanyshyn','','',200,400,351,49,'2023-09-14',2,'2023-09-14'),(744002139,'Maryna','','Марина','',100,180,72,108,'2023-09-15',1,'2023-09-15'),(592673338,'Marina','marill11','Марина','',60,100,82,18,'2023-09-16',1,'2023-09-16'),(5464277510,'Natalia','Nataliia','','',380,700,471,229,'2023-09-16',2,'2023-09-26'),(385701057,'Liz’ok','llizosomka','','',100,180,136,44,'2023-09-26',1,'2023-09-26'),(1007823410,'Олександра','alexozogina','','',600,1200,597,603,'2023-09-27',2,'2023-09-28'),(1685505665,'Юлия','','Юлия Джамгурова','',200,400,46,354,'2023-10-02',2,'2023-10-02'),(385035806,'slava.forriss','forriss','Фітнес-тренер','',200,400,347,53,'2023-10-05',2,'2023-10-05'),(766771861,'Marta Baydaka','','','',100,185,0,185,'2023-10-05',1,'2023-10-05'),(1338496413,'Ol','','Shalayskiy','',200,400,49,351,'2023-10-10',2,'2023-10-09'),(643213043,'Viktoriia','','','',250,500,446,54,'2023-10-11',2,'2023-10-11'),(408531275,'darinka','dar_in_a','','',200,400,0,400,'2023-10-18',2,'2023-10-18'),(769883672,'Olechka','olechka_puganova','','',259,500,489,11,'2023-10-20',1,'2023-10-20'),(343898454,'Dasha','daryaburkovska','','',59,100,0,100,'2023-10-20',1,'2023-10-20'),(338944645,'Аня Кравченко','ann_kravchenko','','',200,400,224,176,'2023-10-21',2,'2023-10-21'),(592673895,'Вікторія','','','',199,400,3,397,'2023-10-22',2,'2023-10-22'),(565797773,'Olena','','','',59,100,0,100,'2023-10-22',1,'2023-10-22'),(474159586,'Oleksandr','','','',65,100,0,100,'2023-10-26',1,'2023-10-26'),(1266685299,'Анастасия','','','',109,200,71,129,'2023-10-26',1,'2023-10-26'),(949507258,'Оля','Lellya2020','','',200,400,4,396,'2023-10-26',2,'2023-10-26'),(788807606,'Максим','maxymbernyk','','',409,800,556,244,'2023-10-31',2,'2023-10-31'),(586665998,'Lesia','Boiko_lesia','','',109,200,30,170,'2023-10-31',1,'2023-10-31'),(1899750332,'Сметанко','natasmetanko77','','',300,590,581,9,'2023-11-07',0,'2023-11-07'),(494990543,'Катерина','KaterynaRozghonyk','','',59,100,12,88,'2023-11-10',1,'2023-11-10'),(415109033,'Даринка','dar_es_salam','','',104,200,62,138,'2023-11-12',1,'2023-11-13'),(970412268,'Yuliya','','','',1304,2600,2341,259,'2023-11-13',2,'2023-11-13'),(572547368,'Марія','mhvost','','',100,190,0,190,'2023-11-13',1,'2023-11-13'),(945996489,'Olga','olgamaksymiuk','','',250,500,83,417,'2023-11-14',2,'2023-11-14'),(391260384,'Liudmyla','Liudmylagoi','','',460,1000,978,22,'2023-11-15',1,'2023-11-15'),(183610017,'Maya','maiagolub','','',200,400,2,398,'2023-11-17',2,'2023-11-17'),(488180399,'Svitlana','SKoropalova','','',60,100,0,0,'2023-11-17',1,'2023-11-17'),(255261631,'Alina','aafterspace','','',59,100,20,80,'2023-11-19',1,'2023-11-19'),(328033138,'Lilia','lilakorop','','',113,200,0,0,'2023-11-20',1,'2023-11-20'),(1382867937,'ооооо0о0о','hiastrn','','',59,100,2,98,'2023-11-23',1,'2023-11-23'),(501875555,'Oleksa','o_shkatov','','',109,200,111,89,'2023-11-28',1,'2023-11-28'),(689418756,'Оля Ракитянська','o_rakytianska','','',109,200,0,200,'2023-11-28',1,'2023-11-29'),(267358762,'Sasha','','','',59,100,40,60,'2023-11-30',1,'2023-11-30'),(643895380,'Наталія','natali_spatar','','',418,800,86,714,'2023-12-2',2,'2023-12-02'),(971910889,'Тетяна','Tatka_Kharlan','','',59,100,31,69,'2023-12-7',1,'2023-12-07'),(5376120073,'Yuliia','','','',59,100,26,74,'2023-12-11',1,'2023-12-11'),(208152908,'Олена','olenamartynenko','','',100,190,0,190,'2023-12-15',1,'2023-12-15'),(360402933,'Lisa','lisa_korneichuk','','',109,200,77,123,'2023-12-17',1,'2023-12-17'),(545055553,'Юлія','boichenko13','','',109,200,0,200,'2023-12-20',1,'2023-12-20'),(56424866,'Kateryna','sereda_ka','','',200,400,370,30,'2023-12-20',2,'2023-12-20'),(1027517,'Sergii','Nabok','','',100,190,0,190,'2023-12-20',1,'2023-12-20'),(1000651580,'','','Ольга Боглевська','',59,100,0,100,'2024-1-5',1,'2024-01-05'),(467157144,'Валерія','','','',59,100,0,100,'2024-1-7',1,'2024-01-07'),(256289713,'Bohdan','proskurov_b','','',59,100,17,83,'2024-1-16',1,'2024-01-16'),(1359827406,'Drey','drey_mie','','',59,100,0,100,'2024-1-17',1,'2024-01-17'),(875306688,'Sergei','','','',59,100,43,57,'2024-1-17',1,'2024-01-17'),(1067930963,'Ник','','','',59,100,32,68,'2024-1-17',1,'2024-01-17'),(239423755,'Olenka','Olenka_taka_Olenka','','',200,400,208,192,'2024-1-30',2,'2024-01-30'),(292705914,'Anя','','','',100,190,40,150,'2024-1-30',1,'2024-01-30'),(288040780,'Юля','juliia_bm','','',60,100,41,59,'2024-1-31',1,'2024-01-31'),(190766696,'mariia','lvusha','','',200,400,35,365,'2024-2-7',2,'2024-02-07'),(549227798,'Валентина','slipv','','',200,400,0,200,'2024-2-12',2,'2024-02-12'),(1444004066,'Katirinka','katirinka11','','',59,100,99,1,'2024-2-15',0,'2024-02-15');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1310,15 +1310,15 @@ DROP TABLE IF EXISTS `users_test`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users_test` (
   `userID` int DEFAULT NULL,
-  `Firstname` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `Username` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `Name` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `Telephone` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `Firstname` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `Username` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `Name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `Telephone` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `Sum` int DEFAULT NULL,
   `Allowed` int DEFAULT NULL,
   `Spent` int DEFAULT NULL,
   `Available` int DEFAULT NULL,
-  `Date` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `Date` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `Level` int DEFAULT NULL,
   `FormattedDate` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
@@ -1359,13 +1359,13 @@ DROP TABLE IF EXISTS `article`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `article` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `slug` varchar(1024) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `title` varchar(512) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `body` text COLLATE utf8mb3_unicode_ci NOT NULL,
-  `view` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `slug` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `title` varchar(512) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `body` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `view` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `category_id` int DEFAULT NULL,
-  `thumbnail_base_url` varchar(1024) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `thumbnail_path` varchar(1024) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `thumbnail_base_url` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `thumbnail_path` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `status` smallint NOT NULL DEFAULT '0',
   `created_by` int DEFAULT NULL,
   `updated_by` int DEFAULT NULL,
@@ -1402,11 +1402,11 @@ DROP TABLE IF EXISTS `article_attachment`;
 CREATE TABLE `article_attachment` (
   `id` int NOT NULL AUTO_INCREMENT,
   `article_id` int NOT NULL,
-  `path` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `base_url` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `type` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `path` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `base_url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `type` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `size` int DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `created_at` int DEFAULT NULL,
   `order` int DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -1433,9 +1433,9 @@ DROP TABLE IF EXISTS `article_category`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `article_category` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `slug` varchar(1024) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `title` varchar(512) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `body` text COLLATE utf8mb3_unicode_ci,
+  `slug` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `title` varchar(512) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `body` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci,
   `parent_id` int DEFAULT NULL,
   `status` smallint NOT NULL DEFAULT '0',
   `created_at` int DEFAULT NULL,
@@ -1465,10 +1465,10 @@ DROP TABLE IF EXISTS `deputa`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `deputa` (
   `id_pk` int NOT NULL AUTO_INCREMENT,
-  `Округ` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `Кандидат` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `Кто выдвигает` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `Фото` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `Округ` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `Кандидат` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `Кто выдвигает` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `Фото` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id_pk`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1523,8 +1523,8 @@ DROP TABLE IF EXISTS `i18n_message`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `i18n_message` (
   `id` int NOT NULL,
-  `language` varchar(16) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `translation` text COLLATE utf8mb3_unicode_ci,
+  `language` varchar(16) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `translation` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci,
   PRIMARY KEY (`id`,`language`),
   CONSTRAINT `fk_i18n_message_source_message` FOREIGN KEY (`id`) REFERENCES `i18n_source_message` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
@@ -1548,8 +1548,8 @@ DROP TABLE IF EXISTS `i18n_source_message`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `i18n_source_message` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `category` varchar(32) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `message` text COLLATE utf8mb3_unicode_ci,
+  `category` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `message` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1571,9 +1571,9 @@ DROP TABLE IF EXISTS `key_storage_item`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `key_storage_item` (
-  `key` varchar(128) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `value` text COLLATE utf8mb3_unicode_ci NOT NULL,
-  `comment` text COLLATE utf8mb3_unicode_ci,
+  `key` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `value` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `comment` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci,
   `updated_at` int DEFAULT NULL,
   `created_at` int DEFAULT NULL,
   PRIMARY KEY (`key`),
@@ -1600,10 +1600,10 @@ DROP TABLE IF EXISTS `page`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `page` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `slug` varchar(2048) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `title` varchar(512) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `body` text COLLATE utf8mb3_unicode_ci NOT NULL,
-  `view` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `slug` varchar(2048) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `title` varchar(512) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `body` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `view` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `status` smallint NOT NULL,
   `created_at` int DEFAULT NULL,
   `updated_at` int DEFAULT NULL,
@@ -1629,8 +1629,8 @@ DROP TABLE IF EXISTS `rbac_auth_assignment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `rbac_auth_assignment` (
-  `item_name` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `user_id` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `item_name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `user_id` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `created_at` int DEFAULT NULL,
   PRIMARY KEY (`item_name`,`user_id`),
   CONSTRAINT `rbac_auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `rbac_auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -1655,10 +1655,10 @@ DROP TABLE IF EXISTS `rbac_auth_item`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `rbac_auth_item` (
-  `name` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `type` smallint NOT NULL,
-  `description` text COLLATE utf8mb3_unicode_ci,
-  `rule_name` varchar(64) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `description` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci,
+  `rule_name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `data` blob,
   `created_at` int DEFAULT NULL,
   `updated_at` int DEFAULT NULL,
@@ -1687,8 +1687,8 @@ DROP TABLE IF EXISTS `rbac_auth_item_child`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `rbac_auth_item_child` (
-  `parent` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `child` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `parent` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `child` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   PRIMARY KEY (`parent`,`child`),
   KEY `child` (`child`),
   CONSTRAINT `rbac_auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `rbac_auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -1714,7 +1714,7 @@ DROP TABLE IF EXISTS `rbac_auth_rule`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `rbac_auth_rule` (
-  `name` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `data` blob,
   `created_at` int DEFAULT NULL,
   `updated_at` int DEFAULT NULL,
@@ -1740,7 +1740,7 @@ DROP TABLE IF EXISTS `system_db_migration`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `system_db_migration` (
-  `version` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `version` varchar(180) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `apply_time` int DEFAULT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1766,10 +1766,10 @@ DROP TABLE IF EXISTS `system_log`;
 CREATE TABLE `system_log` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `level` int DEFAULT NULL,
-  `category` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `category` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `log_time` double DEFAULT NULL,
-  `prefix` text COLLATE utf8mb3_unicode_ci,
-  `message` text COLLATE utf8mb3_unicode_ci,
+  `prefix` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci,
+  `message` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci,
   PRIMARY KEY (`id`),
   KEY `idx_log_level` (`level`),
   KEY `idx_log_category` (`category`)
@@ -1794,7 +1794,7 @@ DROP TABLE IF EXISTS `system_rbac_migration`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `system_rbac_migration` (
-  `version` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `version` varchar(180) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `apply_time` int DEFAULT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1819,7 +1819,7 @@ DROP TABLE IF EXISTS `tbl_poll`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_poll` (
   `poll_id` int NOT NULL AUTO_INCREMENT,
-  `php_framework` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `php_framework` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`poll_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1843,10 +1843,10 @@ DROP TABLE IF EXISTS `timeline_event`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `timeline_event` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `application` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `category` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `event` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `data` text COLLATE utf8mb3_unicode_ci,
+  `application` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `category` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `event` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `data` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci,
   `created_at` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_created_at` (`created_at`)
@@ -1872,13 +1872,13 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(32) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `auth_key` varchar(32) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `access_token` varchar(40) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `password_hash` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `oauth_client` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `oauth_client_user_id` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `username` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `auth_key` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `access_token` varchar(40) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `password_hash` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `oauth_client` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `oauth_client_user_id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `status` smallint NOT NULL DEFAULT '2',
   `created_at` int DEFAULT NULL,
   `updated_at` int DEFAULT NULL,
@@ -1906,12 +1906,12 @@ DROP TABLE IF EXISTS `user_profile`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_profile` (
   `user_id` int NOT NULL AUTO_INCREMENT,
-  `firstname` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `middlename` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `lastname` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `avatar_path` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `avatar_base_url` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `locale` varchar(32) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `firstname` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `middlename` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `lastname` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `avatar_path` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `avatar_base_url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `locale` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `gender` smallint DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -1938,8 +1938,8 @@ DROP TABLE IF EXISTS `user_token`;
 CREATE TABLE `user_token` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
-  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `expire_at` int DEFAULT NULL,
   `created_at` int DEFAULT NULL,
   `updated_at` int DEFAULT NULL,
@@ -1966,10 +1966,10 @@ DROP TABLE IF EXISTS `vybori2019`;
 CREATE TABLE `vybori2019` (
   `id` int NOT NULL AUTO_INCREMENT,
   `date` datetime DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `age` int DEFAULT NULL,
   `district` int DEFAULT NULL,
-  `result` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `result` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `percent` double DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `number` (`id`)
@@ -1996,10 +1996,10 @@ DROP TABLE IF EXISTS `vybori2019i`;
 CREATE TABLE `vybori2019i` (
   `id` int NOT NULL AUTO_INCREMENT,
   `date` datetime DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `age` int DEFAULT NULL,
   `district` int DEFAULT NULL,
-  `result` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `result` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `percent` double DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `number` (`id`)
@@ -2025,7 +2025,7 @@ DROP TABLE IF EXISTS `widget_carousel`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `widget_carousel` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `key` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `key` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `status` smallint DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
@@ -2051,11 +2051,11 @@ DROP TABLE IF EXISTS `widget_carousel_item`;
 CREATE TABLE `widget_carousel_item` (
   `id` int NOT NULL AUTO_INCREMENT,
   `carousel_id` int NOT NULL,
-  `base_url` varchar(1024) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `path` varchar(1024) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `type` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `url` varchar(1024) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `caption` varchar(1024) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `base_url` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `path` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `type` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `url` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `caption` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `status` smallint NOT NULL DEFAULT '0',
   `order` int DEFAULT '0',
   `created_at` int DEFAULT NULL,
@@ -2085,9 +2085,9 @@ DROP TABLE IF EXISTS `widget_menu`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `widget_menu` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `key` varchar(32) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `title` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `items` text COLLATE utf8mb3_unicode_ci NOT NULL,
+  `key` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `items` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `status` smallint NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
@@ -2112,9 +2112,9 @@ DROP TABLE IF EXISTS `widget_text`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `widget_text` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `key` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `title` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `body` text COLLATE utf8mb3_unicode_ci NOT NULL,
+  `key` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `body` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `status` smallint DEFAULT NULL,
   `created_at` int DEFAULT NULL,
   `updated_at` int DEFAULT NULL,
@@ -2143,4 +2143,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-19 14:04:02
+-- Dump completed on 2024-02-20 12:11:46
