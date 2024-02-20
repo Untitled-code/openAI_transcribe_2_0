@@ -1,9 +1,9 @@
 import os
-import openai
+from openai import OpenAI
 from pydub import AudioSegment
 
 # Set up OpenAI API key
-openai.api_key = os.environ.get('OPENAIKEY')
+client = OpenAI(api_key=os.environ.get('OPENAIKEY'))
 def main(audio_file, directory, timestamp):
 # Load the audio file
     transcriptions = []
@@ -16,19 +16,24 @@ def main(audio_file, directory, timestamp):
     print('Transcribing chunks')
     for i, chunk in enumerate(chunks):
         chunk_file = f"chunk_{i}.mp3"
+        print(chunk_file)
         chunk.export(chunk_file, format="mp3")
 
         #Transcribe the audio chunk with the Whisper ASR API
         try:
             with open(chunk_file, "rb") as audio_file:
-                response = openai.Audio.transcribe("whisper-1", audio_file, {
-                    "response-format": "text"})
-                    #"language": "uk"})
+                response = client.audio.transcriptions.create(
+                    model="whisper-1",
+                    file=audio_file,
+                    response_format="text"
+                    # response_format="verbose_json",
+                    # timestamp_granularities=["word"]
+                )
 
             # transcription = response['choices'][0]['text']
-            transcription = response['text']
-            print(transcription)
-            transcriptions.append(transcription)
+            print(response)
+            # transcription = response['text']
+            transcriptions.append(response)
 
             # Remove temporary chunk file
             os.remove(chunk_file)
@@ -40,4 +45,7 @@ def main(audio_file, directory, timestamp):
         f.write(full_transcription)
 
 if __name__ == "__main__":
+    # filename='dir_959676595_Oleg_d09ed0bbd0b5d0b3/18 Efuge Efuge.mp3'
+    # directory = 'dir_959676595_Oleg_d09ed0bbd0b5d0b3'
+    # timestamp='1232432'
     main(filename, directory, timestamp)
