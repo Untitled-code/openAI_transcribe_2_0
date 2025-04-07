@@ -277,7 +277,7 @@ def donate(message):
     logging.debug(f'User {user.id, user.username, user.firstname} is trying to donate')
     bot.send_message(chat_id, f'Зробіть донат за реквізитами: \n'
                               f'Картка Приват - 5169360006139723 або банка Моно: https://send.monobank.ua/jar/2DxPtEsHnF\n'
-                              f'Після цього завантажьте прямо сюди квитанцію про оплату та напишіть юзеру {target_chat_id[0]} про це\n'
+                              f'Після цього завантажте прямо сюди квитанцію та напишіть боту від якого юзера донат.\n'
                               f'Протягом години ми надамо Вам доступ')
 
     @bot.message_handler(content_types=['document', 'photo'])
