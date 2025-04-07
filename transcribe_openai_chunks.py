@@ -3,8 +3,7 @@ from openai import OpenAI
 from pydub import AudioSegment
 
 # Set up OpenAI API key
-# client = OpenAI(api_key=os.environ.get('OPENAIKEY'))
-client = OpenAI(api_key=os.environ.get('OPENAIAPI_CJI'))
+client = OpenAI(api_key=os.environ.get('OPENAIKEY'))
 def main(audio_file, directory, timestamp):
 # Load the audio file
     transcriptions = []
