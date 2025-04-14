@@ -14,11 +14,10 @@ import transcribe_openai_chunks
 import pymysql
 import os
 import glob
+import configparser
+
 
 logging.basicConfig(filename='transcriber_bot.log', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
-#TODO connect DB
-#TODO replace white and prem list with
-#TODO minutes left after transcribing
 
 
 API_TOKEN = os.environ.get('AUDIOOPENAI')
@@ -60,14 +59,29 @@ menu = {
     #     ['Back', 'main']
     # ]
 }
+
+def get_db_config(config_path=os.path.expanduser('~/.bots.cnf')):
+    config = configparser.ConfigParser()
+    config.read(config_path)
+
+    # Extract credentials from the 'client' section.
+    # Using .get() allows you to provide fallback values if needed.
+    db_config = {
+        'host': config.get('client', 'host'),
+        'user': config.get('client', 'user'),
+        'password': config.get('client', 'password'),
+        'db': config.get('client', 'database'),
+        'charset': 'utf8'
+    }
+    return db_config
+
+
 def connectDB(request):
-    db_host = '127.0.0.1'
-    conn = pymysql.connect(
-        user='bots',
-        host='localhost',
-        passwd='editor46',
-        db='transcriber', charset='utf8'
-    )
+
+    db_config = get_db_config()
+    # Use unpacking to pass the configuration as keyword arguments
+    conn = pymysql.connect(**db_config)
+
     cur = conn.cursor()
     cur.execute('USE transcriber')
     print(request)
@@ -126,7 +140,8 @@ def selectUser():
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
     bot.send_message(message.chat.id, """\
-Привіт! Я оновлений бот проекту nikcenter.org для розшифровки аудіо (будь-яка мова) та відеофайлів за допомогою AI chatGPT.\n
+Привіт! Я бот проекту nikcenter.org для розшифровки аудіо (будь-яка мова) та відеофайлів.\n
+Наразі ми оновили бот - крім текста, він дає файл з таймкодом (доступний з 10 до 22:00).\n
 Вибери, що потрібно в меню\n
 --------------------------\n
 Hello! I am an updated bot of the nikcenter.org project to transcribe audio (any language) and video files using AI chatGPT.\n
@@ -244,7 +259,7 @@ def conditions(message):
     user = user_dict[chat_id]
     print(f'Reading conditions by {user.id, user.username, user.firstname}')
     logging.debug(f'Reading conditions by {user.id, user.username, user.firstname}')
-    bot.send_message(chat_id, f'Вітаю, {user.firstname}! Ми в 2,5 рази зменьшили вартість. Зараз ми надаємо доступ за такий донат:\n'
+    bot.send_message(chat_id, f'Вітаю, {user.firstname}! Зараз ми надаємо доступ за такий донат:\n'
                               f'59	грн -	100	хв (без Дропбоксу до 20 мб)\n'
                               f'109	грн -	200	хв (без Дропбоксу)\n'
                               f'150	грн -	300	хв (без Дропбоксу)\n'
@@ -272,12 +287,12 @@ def donate(message):
     chat_id = message.chat.id  # getting user id
     user = user_dict[chat_id]
     target_chat_id = selectUser()  # who is on duty today
-    target_chat_id = ['@Lellya2020', '949507258']  # who is on duty today
+    target_chat_id = ['@alesia215', '521797754']   # who is on duty today
     print(f'User {user.id, user.username, user.firstname} is trying to donate')
     logging.debug(f'User {user.id, user.username, user.firstname} is trying to donate')
     bot.send_message(chat_id, f'Зробіть донат за реквізитами: \n'
                               f'Картка Приват - 5169360006139723 або банка Моно: https://send.monobank.ua/jar/2DxPtEsHnF\n'
-                              f'Після цього завантажте прямо сюди квитанцію та напишіть боту від якого юзера донат.\n'
+                              f'Після цього завантажте прямо сюди квитанцію та повідомте юзеру {target_chat_id[0]} про донат.\n'
                               f'Протягом години ми надамо Вам доступ')
 
     @bot.message_handler(content_types=['document', 'photo'])
