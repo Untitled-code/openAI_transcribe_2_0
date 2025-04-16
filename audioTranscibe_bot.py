@@ -17,7 +17,7 @@ import glob
 import configparser
 
 
-logging.basicConfig(filename='transcriber_bot.log', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(filename='transcriber_bot.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 API_TOKEN = os.environ.get('AUDIOOPENAI')
@@ -36,7 +36,7 @@ class User: #get user data
 
 
 print("Listening...")
-logging.debug("Listening...")
+logging.info("Listening...")
 
 # Define menu structure
 menu = {
@@ -132,7 +132,7 @@ def selectUser():
         user_info = target_chat_ids[week_number - 1]
         for username, chat_id in user_info.items():
             print(f'the week is {week_number} and on duty {username, chat_id}')
-            logging.debug(f'the week is {week_number} and on duty {username, chat_id}')
+            logging.info(f'the week is {week_number} and on duty {username, chat_id}')
             return username, chat_id
 
 
@@ -158,7 +158,7 @@ Choose what you need from the menu\n""", reply_markup=make_keyboard('main'))
     phone_number = request_phone_number(message)
     print(f"User with id{user_id} and firstname {firstname} and username {username} "
           f"and {phone_number} tried to get access")
-    logging.debug(f"User with id {user_id} and firstname {firstname} and username {username} "
+    logging.info(f"User with id {user_id} and firstname {firstname} and username {username} "
                   f"and {phone_number} tried to get access")
 
 
@@ -171,7 +171,7 @@ def handle_contact_message(message):
     username = message.from_user.username
     print(f"User with id{user_id} and firstname {firstname} and username {username} "
           f"and phone number {phone_number} into system")
-    logging.debug(f"User with id {user_id} and firstname {firstname} and username {username} "
+    logging.info(f"User with id {user_id} and firstname {firstname} and username {username} "
                   f"and phone number {phone_number} into system")
     return phone_number
     # Do something with the phone number
@@ -191,7 +191,7 @@ def transcribe(message):
             user_id = message.from_user.id
             firstname = message.from_user.first_name
             print(f"User has chat ID {chat_id} and user ID {user_id}")
-            logging.debug(f"User has chat ID {chat_id} and user ID {user_id}")
+            logging.info(f"User has chat ID {chat_id} and user ID {user_id}")
             # blacklistUsers(chat_id, user_id, firstname) #firewall
             whitelistUsers(chat_id, user_id, firstname)  # firewall
             directory, TIMESTAMP = makeFolder(message, chat_id)
@@ -202,21 +202,21 @@ def transcribe(message):
             fileID = message.audio.file_id
             fileName = message.audio.file_name
             print('fileID, fileName =', fileID, fileName)
-            logging.debug('fileID, fileName =', fileID, fileName)
+            logging.info('fileID, fileName =', fileID, fileName)
             file_info = bot.get_file(fileID)
             print('file.file_path =', file_info.file_path)
-            logging.debug('file.file_path =', file_info.file_path)
+            logging.info('file.file_path =', file_info.file_path)
             downloaded_file = bot.download_file(file_info.file_path)
             # filename = f"{directory}/audio_{TIMESTAMP}.wav"
             filename = f"{directory}/{fileName}"
             with open(filename, 'wb') as new_file:
                 new_file.write(downloaded_file)
             print(filename, directory, TIMESTAMP)
-            logging.debug(filename, directory, TIMESTAMP)
+            logging.info(filename, directory, TIMESTAMP)
             finalRes(chat_id, filename, directory, TIMESTAMP)
         except Exception as e:
             print(f"Audio upload  failed {e}")
-            logging.debug(f"Audio upload failed {e}")
+            logging.info(f"Audio upload failed {e}")
             bot.send_message(chat_id, f'Щось пішло не так. Спробуйте пізніше. '
                                       f'\nМожливо, ви завантажуєте файл більший за 20МБ (20 000 000 байт).'
                                       f'\nВ цьому разі Вам потрібно підключти Dropbox.')
@@ -229,19 +229,19 @@ def transcribe(message):
         premListUsers(chat_id, user_id, firstname)  # firewall
         directory, TIMESTAMP = makeFolder(message, chat_id)
         print(f'Getting data from class {user_dict[chat_id].username}')
-        logging.debug(f'Getting data from class {user_dict[chat_id].username}')
+        logging.info(f'Getting data from class {user_dict[chat_id].username}')
         print(f'Getting data from class {user_dict[chat_id].id}')
-        logging.debug(f'Getting data from class {user_dict[chat_id].id}')
+        logging.info(f'Getting data from class {user_dict[chat_id].id}')
         print(f'Getting data from class {user_dict[chat_id].firstname}')
-        logging.debug(f'Getting data from class {user_dict[chat_id].firstname}')
-        # logging.debug(f'Bot sending filename to {user.firstname}')
+        logging.info(f'Getting data from class {user_dict[chat_id].firstname}')
+        # logging.info(f'Bot sending filename to {user.firstname}')
         fileUrl = message.text
         bot.send_message(chat_id, f'Файл отримано, треба почекати.\n'
                                   f'Розшифрування може зайняти 1/10 часу від загальної тривалості аудіо')
         # Download filename
         print(
             f'Dropbox filename is downloadeding {fileUrl} for {user_dict[chat_id].id} {user_dict[chat_id].firstname} {user_dict[chat_id].username}')
-        logging.debug(
+        logging.info(
             f'Dropbox filename is downloadeding {fileUrl} for {user_dict[chat_id].id} {user_dict[chat_id].firstname} {user_dict[chat_id].username}')
         try:
             subprocess.call(['bash', 'downloadDrop.sh', fileUrl, directory, TIMESTAMP])
@@ -251,14 +251,14 @@ def transcribe(message):
             finalRes(chat_id, filename[0], directory, TIMESTAMP)
         except Exception as e:
             print(f"dropbox failed {e}")
-            logging.debug(f"dropbox failed {e}")
+            logging.info(f"dropbox failed {e}")
             bot.send_message(chat_id, f'Щось пішло не так. Спробуйте пізніше')
 
 def conditions(message):
     chat_id = message.chat.id  # getting user id
     user = user_dict[chat_id]
     print(f'Reading conditions by {user.id, user.username, user.firstname}')
-    logging.debug(f'Reading conditions by {user.id, user.username, user.firstname}')
+    logging.info(f'Reading conditions by {user.id, user.username, user.firstname}')
     bot.send_message(chat_id, f'Вітаю, {user.firstname}! Зараз ми надаємо доступ за такий донат:\n'
                               f'59	грн -	100	хв (без Дропбоксу до 20 мб)\n'
                               f'109	грн -	200	хв (без Дропбоксу)\n'
@@ -272,7 +272,7 @@ def checkMinutes(message):
     chat_id = message.chat.id  # getting user id
     user = user_dict[chat_id]
     print(f'Checking minutes for {user.id, user.username, user.firstname}')
-    logging.debug(f'Checking minutes for {user.id, user.username, user.firstname}')
+    logging.info(f'Checking minutes for {user.id, user.username, user.firstname}')
     request = f'SELECT Available FROM users WHERE userID={chat_id}'
     try:
         available = connectDB(request)
@@ -289,7 +289,7 @@ def donate(message):
     target_chat_id = selectUser()  # who is on duty today
     target_chat_id = ['@alesia215', '521797754']   # who is on duty today
     print(f'User {user.id, user.username, user.firstname} is trying to donate')
-    logging.debug(f'User {user.id, user.username, user.firstname} is trying to donate')
+    logging.info(f'User {user.id, user.username, user.firstname} is trying to donate')
     bot.send_message(chat_id, f'Зробіть донат за реквізитами: \n'
                               f'Картка Приват - 5169360006139723 або банка Моно: https://send.monobank.ua/jar/2DxPtEsHnF\n'
                               f'Після цього завантажте прямо сюди квитанцію та повідомте юзеру {target_chat_id[0]} про донат.\n'
@@ -301,36 +301,36 @@ def donate(message):
         chat_id = message.chat.id  # getting user id
         user = user_dict[chat_id]
         print(f'User {user.id, user.username, user.firstname} uploaded doc in donation')
-        logging.debug(f'User {user.id, user.username, user.firstname} uploaded doc in donation')
+        logging.info(f'User {user.id, user.username, user.firstname} uploaded doc in donation')
         # Get the chat ID of the user you want to forward the document to
         # Replace 'ANOTHER_USER_CHAT_ID' with the actual chat ID of the user
         target_chat_id = selectUser() #who is on duty today
         directory = 'payment'
         if message.document:
             print('Getting message.document =', message.document)
-            logging.debug('Getting message.document =', message.document)
+            logging.info('Getting message.document =', message.document)
 
             fileID = message.document.file_id
             fileName = message.document.file_name
             print('fileID, fileName =', fileID, fileName)
-            logging.debug('fileID, fileName =', fileID, fileName)
+            logging.info('fileID, fileName =', fileID, fileName)
             file_info = bot.get_file(fileID)
             print('file.file_path =', file_info.file_path)
-            logging.debug('file.file_path =', file_info.file_path)
+            logging.info('file.file_path =', file_info.file_path)
             downloaded_file = bot.download_file(file_info.file_path)
             filename = f"{directory}/{fileName}"
 
         elif message.photo:
             print('Getting message.photo =', message.photo[-1])
-            logging.debug('Getting message.photo =', message.photo[-1])
+            logging.info('Getting message.photo =', message.photo[-1])
             """Downloading photo"""
             print('message.photo =', message.photo)
             fileID = message.photo[-1].file_id
             print('fileID =', fileID)
-            logging.debug('fileID =', fileID)
+            logging.info('fileID =', fileID)
             file_info = bot.get_file(fileID)
             print('file.file_path =', file_info.file_path)
-            logging.debug('file.file_path =', file_info.file_path)
+            logging.info('file.file_path =', file_info.file_path)
             downloaded_file = bot.download_file(file_info.file_path)
             filename = f"{directory}/donation_{chat_id}_{TIMESTAMP}.jpg"
         with open(filename, 'wb') as new_file:
@@ -349,7 +349,7 @@ def whitelistUsers(chat_id, user_id, firstname):
     print(f"User with chat ID {chat_id} and user ID {user_id} has access level {level}")
     if level == 1 or level == 2:
         print(f'User with chat ID {chat_id} and user ID {user_id} in white list')
-        logging.debug(f'User with chat ID {chat_id} and user ID {user_id} in white list')
+        logging.info(f'User with chat ID {chat_id} and user ID {user_id} in white list')
         pass
     else:
         deadEnd(chat_id, user_id, firstname)
@@ -360,7 +360,7 @@ def premListUsers(chat_id, user_id, firstname):
     print(f"User with chat ID {chat_id} and user ID {user_id} has access level {level}")
     if level == 2:
         print(f'User with chat ID {chat_id} and user ID {user_id} in prem list')
-        logging.debug(f'User with chat ID {chat_id} and user ID {user_id} in prem list')
+        logging.info(f'User with chat ID {chat_id} and user ID {user_id} in prem list')
         pass
     else:
         deadEnd(chat_id, user_id, firstname)
@@ -369,7 +369,7 @@ def deadEnd(chat_id, user_id, firstname):
     bot.send_message(chat_id, """Дякую, що звернулись до нас, але, на жаль,  у вас немає доступу цього рівня.
     Зайдіть у меню та зробіть донат""")
     print(f"User with chat ID {chat_id} and user ID {user_id} amd first name {firstname} has been blocked")
-    logging.debug(f"User with chat ID {chat_id} and user ID {user_id} amd first name {firstname} has been blocked")
+    logging.info(f"User with chat ID {chat_id} and user ID {user_id} amd first name {firstname} has been blocked")
     bot.ban_chat_member(chat_id, user_id)
 
 def makeFolder(message, chat_id):
@@ -381,15 +381,15 @@ def makeFolder(message, chat_id):
     user.firstname = firstname  # writting to class User
     user.username = username  # writting to class User
     print(f'id: {user.id}, name: {user.firstname}, username: {user.username}')
-    logging.debug(f'id: {user}, name: {user.firstname}, username: {user.username}')
+    logging.info(f'id: {user}, name: {user.firstname}, username: {user.username}')
     """Prepairing directory with chat_id and output file with timestamp"""
     TIMESTAMP = datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')[:-3]  # with miliseconds
     directory = f'dir_{chat_id}_{firstname}_{username}'
     print(f'Directory: {directory}')
-    logging.debug(f'Directory: {directory}')
+    logging.info(f'Directory: {directory}')
     Path(directory).mkdir(exist_ok=True)  # creating a new directory if not exist
     print(f'Directory is made... {directory}')
-    logging.debug(f'Directory is made... {directory}')
+    logging.info(f'Directory is made... {directory}')
     return directory, TIMESTAMP
 
 
@@ -398,22 +398,22 @@ def finalRes(chat_id, filename, directory, TIMESTAMP):
     newFile = f"{directory}/audio_{TIMESTAMP}.mp3"
     try:
         print(f"Start converting {filename} to {newFile} for {chat_id}")
-        logging.debug(f"Start converting {filename} to {newFile}")
+        logging.info(f"Start converting {filename} to {newFile}")
         subprocess.call(['bash', 'audioConvert.sh', filename, newFile, str(chat_id)])
     except Exception as e:
         print(f"something wrong with the conversion. {e}")
-        logging.debug(f"something wrong with the conversion. {e}")
+        logging.info(f"something wrong with the conversion. {e}")
         bot.send_message(chat_id, f'Щось пішло не так. Спробуйте пізніше')
     try:
         transcribe_openai_chunks.main(newFile, directory, TIMESTAMP)
     except Exception as e:
         print(f"something wrong with the conversion. {e}")
-        logging.debug(f"something wrong with the conversion. {e}")
+        logging.info(f"something wrong with the conversion. {e}")
         bot.send_message(chat_id, f'Щось пішло не так. Спробуйте пізніше')
     output_file = f'./{directory}/audio_{TIMESTAMP}.txt'
     file = open(output_file, 'rb')
     print(f'Bot sending file to {user_dict[chat_id].firstname} {user_dict[chat_id].id} {user_dict[chat_id].username}')
-    logging.debug(f'Bot sending file to {user_dict[chat_id].firstname} {user_dict[chat_id].id} {user_dict[chat_id].username}')
+    logging.info(f'Bot sending file to {user_dict[chat_id].firstname} {user_dict[chat_id].id} {user_dict[chat_id].username}')
     bot.send_document(chat_id, file)  # sending file to user
     bot.send_message(chat_id, 'Тримайте текст. Колеги, будь ласка, якщо вам подобається цей бот,'
                               '\nподякуйте і тегніте нашу сторінку в ФБ'
@@ -423,7 +423,7 @@ def finalRes(chat_id, filename, directory, TIMESTAMP):
     # os.remove(filename)
     # os.remove(newFile)
     print(f"Files {filename}, {newFile} were removed")
-    logging.debug(f"Files {filename}, {newFile} were removed")
+    logging.info(f"Files {filename}, {newFile} were removed")
     """End of program"""
 
 
