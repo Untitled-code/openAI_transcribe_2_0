@@ -423,12 +423,11 @@ def finalRes(chat_id, filename, directory, TIMESTAMP):
                               '\nhttps://www.facebook.com/nikcenter'
                               '\n')  # bot replying for a certain message
 
-    # os.remove(filename)
-    # os.remove(newFile)
+    os.remove(filename)
+    os.remove(newFile)
     print(f"Files {filename}, {newFile} were removed")
     logging.info(f"Files {filename}, {newFile} were removed")
     """End of program"""
 
 
-
-bot.infinity_polling()
+bot.infinity_polling(timeout=60, long_polling_timeout=60)
