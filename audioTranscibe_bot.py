@@ -20,8 +20,8 @@ import configparser
 logging.basicConfig(filename='transcriber_bot.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
-API_TOKEN = os.environ.get('AUDIOOPENAI')
-# API_TOKEN = '2073537137:AAESpDgrCAOIDLYClFtG3-zc5LAl6baZS9k' #test bot
+# API_TOKEN = os.environ.get('AUDIOOPENAI')
+API_TOKEN = '2073537137:AAESpDgrCAOIDLYClFtG3-zc5LAl6baZS9k' #test bot
 print(API_TOKEN)
 bot = telebot.TeleBot(API_TOKEN)
 
@@ -411,10 +411,14 @@ def finalRes(chat_id, filename, directory, TIMESTAMP):
         logging.info(f"something wrong with the conversion. {e}")
         bot.send_message(chat_id, f'Щось пішло не так. Спробуйте пізніше')
     output_file = f'./{directory}/audio_{TIMESTAMP}.txt'
+    output_file_timecodes = f'./{directory}/audio_{TIMESTAMP}_timecodes.txt'
     file = open(output_file, 'rb')
     print(f'Bot sending file to {user_dict[chat_id].firstname} {user_dict[chat_id].id} {user_dict[chat_id].username}')
     logging.info(f'Bot sending file to {user_dict[chat_id].firstname} {user_dict[chat_id].id} {user_dict[chat_id].username}')
     bot.send_document(chat_id, file)  # sending file to user
+    if os.path.exists(output_file_timecodes):
+        file_timecodes = open(output_file_timecodes, 'rb')
+        bot.send_document(chat_id, file_timecodes)
     bot.send_message(chat_id, 'Тримайте текст. Колеги, будь ласка, якщо вам подобається цей бот,'
                               '\nподякуйте і тегніте нашу сторінку в ФБ'
                               '\nhttps://www.facebook.com/nikcenter'
